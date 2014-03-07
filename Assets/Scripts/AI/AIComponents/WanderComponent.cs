@@ -11,9 +11,11 @@ public class WanderComponent : AIComponent {
 
 	private Rect territory;
 	private Vector3 target = new Vector3();
+	private float speed;
 
-	public WanderComponent(Rect territory) {
+	public WanderComponent(Rect territory, float speed) {
 		this.territory = territory;
+		this.speed = speed;
 		PickTarget ();
 	}
 
@@ -47,17 +49,17 @@ public class WanderComponent : AIComponent {
 		//Debug.LogWarning (Distance(target, oldPos));
 		if(Mathf.Abs(newPos.x - target.x) > 0.5f) {
 			if(newPos.x < target.x) {
-				newPos.x+=.05f;
+				newPos.x += .05f * speed;
 			} else if(newPos.x > target.x) {
-				newPos.x-=.05f;
+				newPos.x -= .05f * speed;
 			}
 		}
 
 		if(Mathf.Abs(newPos.z - target.z) > 0.5f) {
 			if(newPos.z < target.z) {
-				newPos.z+=.05f;
+				newPos.z += .05f * speed;
 			} else if(newPos.z > target.z) {
-				newPos.z-=.05f;
+				newPos.z -= .05f * speed;
 			}
 		}
 		npcInterface.SetPointLocation (newPos);

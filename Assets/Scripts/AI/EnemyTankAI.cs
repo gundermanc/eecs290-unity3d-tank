@@ -10,6 +10,7 @@ using System.Collections;
 public class EnemyTankAI : MonoBehaviour {
 
 	public Rect bounds;
+	public float wanderAndPatrolSpeed = 1.5f;
 	
 	/* the GenericAI manager */
 	private GenericAI ai;
@@ -22,7 +23,7 @@ public class EnemyTankAI : MonoBehaviour {
 
 		/* the components for this AI module */
 		this.ai = new GenericAI(new WanderComponent[] {
-			new WanderComponent(new Rect(bounds))
+			new WanderComponent(bounds, wanderAndPatrolSpeed)
 		}, this.npcInterface);
 	}
 	
