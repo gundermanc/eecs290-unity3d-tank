@@ -44,25 +44,8 @@ public class WanderComponent : AIComponent {
 	}
 
 	public bool Act(EntityInterface npcInterface) {
-		Vector3 oldPos = npcInterface.GetPointLocation ();
-		Vector3 newPos = new Vector3 (oldPos.x, oldPos.y, oldPos.z);
-		//Debug.LogWarning (Distance(target, oldPos));
-		if(Mathf.Abs(newPos.x - target.x) > 0.5f) {
-			if(newPos.x < target.x) {
-				newPos.x += .05f * speed;
-			} else if(newPos.x > target.x) {
-				newPos.x -= .05f * speed;
-			}
-		}
-
-		if(Mathf.Abs(newPos.z - target.z) > 0.5f) {
-			if(newPos.z < target.z) {
-				newPos.z += .05f * speed;
-			} else if(newPos.z > target.z) {
-				newPos.z -= .05f * speed;
-			}
-		}
-		npcInterface.SetPointLocation (newPos);
+		npcInterface.SetPointLocation (GenericAI.MovementVector(npcInterface.GetPointLocation ()
+		                                                        , target, this.speed));
 
 		return true;
 	}

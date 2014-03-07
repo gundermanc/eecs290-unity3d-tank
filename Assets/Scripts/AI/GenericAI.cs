@@ -42,6 +42,27 @@ public class GenericAI {
 		}
 	}
 
+	public static Vector3 MovementVector(Vector3 position, Vector3 desiredPosition, float speed) {
+		Vector3 newPos = new Vector3 (position.x, position.y, position.z);
+		if(Mathf.Abs(newPos.x - desiredPosition.x) > 0.5f) {
+			if(newPos.x < desiredPosition.x) {
+				newPos.x+=.05f*speed;
+			} else if(newPos.x > desiredPosition.x) {
+				newPos.x-=.05f*speed;
+			}
+		}
+		
+		if(Mathf.Abs(newPos.z - desiredPosition.z) > 0.5f) {
+			if(newPos.z < desiredPosition.z) {
+				newPos.z+=.05f*speed;
+			} else if(newPos.z > desiredPosition.z) {
+				newPos.z-=.05f*speed;
+			}
+		}
+
+		return newPos;
+	}
+
 	public static float Distance(Vector3 v1, Vector3 v2) {
 		return Mathf.Sqrt (Mathf.Pow ((v1.x - v2.x), 2) + Mathf.Pow ((v1.y - v2.y), 2) + Mathf.Pow ((v1.z - v2.z), 2));
 	}

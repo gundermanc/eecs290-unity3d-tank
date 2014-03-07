@@ -42,25 +42,9 @@ public class PursueComponent : AIComponent {
 		if(GenericAI.Distance(oldPos, playerPos) 
 		   > this.stoppingDistance) {
 
-			Vector3 newPos = new Vector3 (oldPos.x, oldPos.y, oldPos.z);
-			if(Mathf.Abs(newPos.x - playerPos.x) > 0.5f) {
-				if(newPos.x < playerPos.x) {
-					newPos.x+=.05f*speed;
-				} else if(newPos.x > playerPos.x) {
-					newPos.x-=.05f*speed;
-				}
-			}
-			
-			if(Mathf.Abs(newPos.z - playerPos.z) > 0.5f) {
-				if(newPos.z < playerPos.z) {
-					newPos.z+=.05f*speed;
-				} else if(newPos.z > playerPos.z) {
-					newPos.z-=.05f*speed;
-				}
-			}
-			npcInterface.SetPointLocation (newPos);
+			npcInterface.SetPointLocation (GenericAI.MovementVector(oldPos, playerPos, speed));
 
-			// we were too far away and got closer
+			// end component cascade here
 			return true;
 		}
 

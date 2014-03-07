@@ -13,14 +13,16 @@ public class PatrolComponent : AIComponent {
 	private Vector3[] territory;
 	/** The index of the current point being pursued */
 	private int target;
+	private float speed;
 	
 	/**
 	 * Instantiates component.
 	 * @param territory Series of points that the tank will patrol through.
 	 * @param startIndex First point to visit.
 	 */
-	public PatrolComponent(Vector3[] territory, int startIndex) {
+	public PatrolComponent(Vector3[] territory, int startIndex, float speed) {
 		this.territory = territory;
+		this.speed = speed;
 		int target = startIndex;
 		NextTarget ();
 	}
@@ -54,22 +56,7 @@ public class PatrolComponent : AIComponent {
 	public bool Act(EntityInterface npcInterface) {
 		Vector3 oldPos = npcInterface.GetPointLocation ();
 		Vector3 newPos = new Vector3 (oldPos.x, oldPos.y, oldPos.z);
-		if(Mathf.Abs(newPos.x - territory[target].x) > 0.5f) {
-			if(newPos.x < territory[target].x) {
-				newPos.x+=.05f;
-			} else if(newPos.x > territory[target].x) {
-				newPos.x-=.05f;
-			}
-		}
-		
-		if(Mathf.Abs(newPos.z - territory[target].z) > 0.5f) {
-			if(newPos.z < territory[target].z) {
-				newPos.z+=.05f;
-			} else if(newPos.z > territory[target].z) {
-				newPos.z-=.05f;
-			}
-		}
-		npcInterface.SetPointLocation (newPos);
+		npcInterface.SetPointLocation (GenericAI.MovementVector(oldPos, territory[target], this.speed));
 		
 		return true;
 	}
