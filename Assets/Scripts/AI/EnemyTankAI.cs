@@ -44,6 +44,9 @@ public class EnemyTankAI : MonoBehaviour {
 		}
 
 		public void SetPointLocation(Vector3 location) {
+			Vector3 lookDir = location;
+			lookDir.z *= -1;                   
+			this.transform.LookAt (location);
 			this.transform.position = location;
 		}
 

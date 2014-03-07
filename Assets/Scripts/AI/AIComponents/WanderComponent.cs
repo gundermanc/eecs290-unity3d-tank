@@ -23,37 +23,42 @@ public class WanderComponent : AIComponent {
 
 	public void Think(EntityInterface npcInterface) {
 		/* if we have reached our target, generate a new target */
-		if(Distance(npcInterface.GetPointLocation(), target) <= 3) {
+		if(GenericAI.Distance(npcInterface.GetPointLocation(), target) <= 1.0f) {
 			PickTarget();
 		}
 		return;
 	}
 
 	private void PickTarget() {
+		Vector3 newTarget = new Vector3();
+		do {
+			/* select a random point within */
+			newTarget.x = Random.Range (territory.x, territory.x + territory.width);
+			newTarget.z = Random.Range (territory.y, territory.y + territory.height);
+			Debug.LogWarning ("Picked (" + target.x + ", " + target.z + ")");
+		} while (GenericAI.Distance(target, newTarget) < 5);
 
-		/* select a random point within */
-		target.x = Random.Range (territory.x, territory.x + territory.width);
-		target.z = Random.Range (territory.y, territory.y + territory.height);
-		Debug.LogWarning ("Picked (" + target.x + ", " + target.z + ")");
-	}
-
-	private float Distance(Vector3 v1, Vector3 v2) {
-		return Mathf.Sqrt (Mathf.Pow ((v1.x - v2.x), 2) + Mathf.Pow ((v1.y - v2.y), 2) + Mathf.Pow ((v1.z - v2.z), 2));
+		target = newTarget;
 	}
 
 	public bool Act(EntityInterface npcInterface) {
 		Vector3 oldPos = npcInterface.GetPointLocation ();
 		Vector3 newPos = new Vector3 (oldPos.x, oldPos.y, oldPos.z);
 		//Debug.LogWarning (Distance(target, oldPos));
-		if(newPos.x < target.x) {
-			newPos.x+=.05f;
-		} else if(newPos.x > target.x) {
-			newPos.x-=.05f;
+		if(Mathf.Abs(newPos.x - target.x) > 0.5f) {
+			if(newPos.x < target.x) {
+				newPos.x+=.05f;
+			} else if(newPos.x > target.x) {
+				newPos.x-=.05f;
+			}
 		}
-		if(newPos.z < target.z) {
-			newPos.z+=.05f;
-		} else if(newPos.z > target.z) {
-			newPos.z-=.05f;
+
+		if(Mathf.Abs(newPos.z - target.z) > 0.5f) {
+			if(newPos.z < target.z) {
+				newPos.z+=.05f;
+			} else if(newPos.z > target.z) {
+				newPos.z-=.05f;
+			}
 		}
 		npcInterface.SetPointLocation (newPos);
 
