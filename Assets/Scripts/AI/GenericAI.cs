@@ -25,10 +25,6 @@ public class GenericAI {
 		this.npcInterface = npcInterface;
 	}
 
-	/**
-	 * Performed every frame, this is where each AI component gets the chance to update it's internal
-	 * status.
-	 */
 	public void Think() {
 		for(int i = 0; i < this.components.Length; i++) {
 
@@ -37,13 +33,7 @@ public class GenericAI {
 		}
 	}
 
-	/**
-	 * Performed every frame, the AI tries each component 1 by 1 until it discovers one that
-	 * can handle the desired situation.
-	 */
 	public void Act() {
-
-		/* find a component that can handle current situation */
 		for(int i = 0; i < this.components.Length; i++) {
 			/* try the current component, if it handles the situation (true), end loop */
 			if(this.components[i].Act(npcInterface)) {
@@ -52,9 +42,6 @@ public class GenericAI {
 		}
 	}
 
-	/**
-	 * Calculate the distance between two vectors
-	 */
 	public static float Distance(Vector3 v1, Vector3 v2) {
 		return Mathf.Sqrt (Mathf.Pow ((v1.x - v2.x), 2) + Mathf.Pow ((v1.y - v2.y), 2) + Mathf.Pow ((v1.z - v2.z), 2));
 	}
