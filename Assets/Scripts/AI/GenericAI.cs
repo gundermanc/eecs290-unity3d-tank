@@ -25,14 +25,6 @@ public class GenericAI {
 		this.npcInterface = npcInterface;
 	}
 
-	public void Sense() {
-		for(int i = 0; i < this.components.Length; i++) {
-
-			/* try the current component, if it handles the situation (true), end loop */
-			this.components[i].Sense();
-		}
-	}
-
 	public void Think() {
 		for(int i = 0; i < this.components.Length; i++) {
 
