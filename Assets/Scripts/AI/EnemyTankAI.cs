@@ -9,7 +9,9 @@ using System.Collections;
  */
 public class EnemyTankAI : MonoBehaviour {
 
-	public Rect bounds;
+	/* PUBLIC PARAMS: */
+	/* The bounds for this tank's territory. He can patrol in here when not aware of player */
+	public Rect territory;
 	
 	/* the GenericAI manager */
 	private GenericAI ai;
@@ -20,15 +22,14 @@ public class EnemyTankAI : MonoBehaviour {
 	void Start () {
 		this.npcInterface = new NPCInterface (transform);
 
-		/* the components for this AI module */
-		this.ai = new GenericAI(new WanderComponent[] {
-			new WanderComponent(new Rect(bounds))
+		/* the components for this AI module. order defines precedence */
+		this.ai = new GenericAI(new AIComponent[] {
+			new WanderComponent(new Rect(territory))
 		}, this.npcInterface);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		this.ai.Sense ();
 		this.ai.Think ();
 		this.ai.Act ();
 	}
@@ -37,23 +38,36 @@ public class EnemyTankAI : MonoBehaviour {
 	 * Defines how the AI controls the tank
 	 */
 	private class NPCInterface : EntityInterface {
+		/* stores the transform */
 		private Transform transform;
 
+		/**
+		 * Creates an instance of the Tank controller
+		 * @param transform The transform used to control the tank.
+		 */
 		public NPCInterface(Transform transform) {
 			this.transform = transform;
 		}
 
-		public void SetPointLocation(Vector3 location) {                
+		/**
+		 * Sets the Location of the tank, without animations. This should be called
+		 * every Act method to perform the frame-by-frame update.
+		 */
+		public void SetPointLocation(Vector3 location) {
+
+			// look where we are going
 			this.transform.LookAt (2 * this.transform.position - location);
+
+			// move
 			this.transform.position = location;
 		}
 
+		/**
+		 * Gets the tank's location
+		 * @return The tank's location.
+		 */
 		public Vector3 GetPointLocation() {
 			return this.transform.position;
-		}
-
-		public void GoToXYNatural(float x, float z) {
-			// = new Vector3 (x, transform.position.y, z);
 		}
 	}
 }

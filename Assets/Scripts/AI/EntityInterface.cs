@@ -10,11 +10,12 @@ using System.Collections;
 public interface EntityInterface {
 
 	/**
-	 * Calls to this function should make the entity in question move to
-	 * location XY in its natural way (driving, walking, etc).
+	 * Sets the Point location of the tank.
 	 */
-	void GoToXYNatural (float x, float z);
-
 	void SetPointLocation(Vector3 location);
+
+	/**
+	 * Gets the location of the tank.
+	 */
 	Vector3 GetPointLocation();
 }
