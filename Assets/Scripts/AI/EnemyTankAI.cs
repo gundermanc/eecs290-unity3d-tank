@@ -11,6 +11,7 @@ public class EnemyTankAI : MonoBehaviour {
 
 	public Rect bounds;
 	public float wanderAndPatrolSpeed = 1.5f;
+	public GameObject player;
 	
 	/* the GenericAI manager */
 	private GenericAI ai;
@@ -19,11 +20,12 @@ public class EnemyTankAI : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		this.npcInterface = new NPCInterface (transform);
+		this.npcInterface = new NPCInterface (transform, player.transform);
 
 		/* the components for this AI module */
-		this.ai = new GenericAI(new WanderComponent[] {
-			new WanderComponent(bounds, wanderAndPatrolSpeed)
+		this.ai = new GenericAI(new AIComponent[] {
+			//new WanderComponent(bounds, wanderAndPatrolSpeed),
+			new PursueComponent(10, 1.5f)
 		}, this.npcInterface);
 	}
 	
@@ -38,9 +40,11 @@ public class EnemyTankAI : MonoBehaviour {
 	 */
 	private class NPCInterface : EntityInterface {
 		private Transform transform;
+		private Transform playerTransform;
 
-		public NPCInterface(Transform transform) {
+		public NPCInterface(Transform transform, Transform playerTransform) {
 			this.transform = transform;
+			this.playerTransform = playerTransform;
 		}
 
 		public void SetPointLocation(Vector3 location) {                
@@ -52,8 +56,8 @@ public class EnemyTankAI : MonoBehaviour {
 			return this.transform.position;
 		}
 
-		public void GoToXYNatural(float x, float z) {
-			// = new Vector3 (x, transform.position.y, z);
+		public Vector3 GetPlayerLocation() {
+			return playerTransform.position;
 		}
 	}
 }

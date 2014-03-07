@@ -8,13 +8,7 @@ using System.Collections;
  * @author cdg46
  */
 public interface EntityInterface {
-
-	/**
-	 * Calls to this function should make the entity in question move to
-	 * location XY in its natural way (driving, walking, etc).
-	 */
-	void GoToXYNatural (float x, float z);
-
 	void SetPointLocation(Vector3 location);
 	Vector3 GetPointLocation();
+	Vector3 GetPlayerLocation();
 }
