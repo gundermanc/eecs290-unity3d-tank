@@ -8,14 +8,7 @@ using System.Collections;
  * @author cdg46
  */
 public interface AIComponent {
-
-	/**
-	 * Decide what to do next
-	 */
+	void Sense();
 	void Think(EntityInterface npcInterface);
-
-	/**
-	 * Perform one frame update.
-	 */
 	bool Act(EntityInterface npcInterface);
 }
