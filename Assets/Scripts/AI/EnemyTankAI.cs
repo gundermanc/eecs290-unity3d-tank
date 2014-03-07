@@ -28,7 +28,6 @@ public class EnemyTankAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		this.ai.Sense ();
 		this.ai.Think ();
 		this.ai.Act ();
 	}
