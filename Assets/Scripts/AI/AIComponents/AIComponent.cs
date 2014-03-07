@@ -8,7 +8,6 @@ using System.Collections;
  * @author cdg46
  */
 public interface AIComponent {
-	void Sense();
 	void Think(EntityInterface npcInterface);
 	bool Act(EntityInterface npcInterface);
 }
