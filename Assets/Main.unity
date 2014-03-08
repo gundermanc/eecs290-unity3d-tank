@@ -286,6 +286,7 @@ MonoBehaviour:
     width: 20
     height: 20
   wanderAndPatrolSpeed: 1.5
+  pursuitSpeed: 2
   player: {fileID: 2029826521}
 --- !u!1 &354830500
 GameObject:

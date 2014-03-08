@@ -2,12 +2,12 @@
 using System.Collections;
 
 /**
- * The enemy tank AI. This class implements the GenericAI class and conforms
+ * The friendly tank AI. This class implements the GenericAI class and conforms
  * to its prototypes.
  * @author Christian Gunderman
  * @author cdg46
  */
-public class EnemyTankAI : MonoBehaviour {
+public class FriendlyTankAI : MonoBehaviour, FriendlyInterface {
 
 	public Rect bounds;
 	public float wanderAndPatrolSpeed = 1.0f;
@@ -18,7 +18,7 @@ public class EnemyTankAI : MonoBehaviour {
 	private GenericAI ai;
 	/* Controls the NPC and allows the AI to interface with it */
 	private TankController npcInterface;
-
+	
 	// Use this for initialization
 	void Start () {
 		this.npcInterface = new TankController (transform, player.transform);
@@ -34,5 +34,13 @@ public class EnemyTankAI : MonoBehaviour {
 	void Update () {
 		this.ai.Think ();
 		this.ai.Act ();
+	}
+
+	public Vector3 GetLocation() {
+		return transform.position;
+	}
+
+	public int GetID() {
+		return transform.GetInstanceID ();
 	}
 }

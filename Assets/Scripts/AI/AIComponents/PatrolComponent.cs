@@ -23,7 +23,7 @@ public class PatrolComponent : AIComponent {
 	public PatrolComponent(Vector3[] territory, int startIndex, float speed) {
 		this.territory = territory;
 		this.speed = speed;
-		int target = startIndex;
+		target = startIndex;
 		NextTarget ();
 	}
 	
@@ -54,9 +54,8 @@ public class PatrolComponent : AIComponent {
 	 * move closer.
 	 */
 	public bool Act(EntityInterface npcInterface) {
-		Vector3 oldPos = npcInterface.GetPointLocation ();
-		Vector3 newPos = new Vector3 (oldPos.x, oldPos.y, oldPos.z);
-		npcInterface.SetPointLocation (GenericAI.MovementVector(oldPos, territory[target], this.speed));
+		npcInterface.SetPointLocation (GenericAI.MovementVector(npcInterface.GetPointLocation (),
+		                                                        territory[target], this.speed));
 		
 		return true;
 	}
