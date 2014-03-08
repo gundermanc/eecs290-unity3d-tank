@@ -3,31 +3,35 @@ using System.Collections;
 
 public class Tank : MonoBehaviour {
 
-	private int health;
-	private TextMesh showhealth;
+	private int health; //Tank's health points (out of 100)
+	private HealthDisplay showhealth; //Object that displays the health of the tank
 
 	// Use this for initialization
 	void Start () {
 		health = 100;
-		showhealth = gameObject.GetComponent(typeof(TextMesh)) as TextMesh;
-		//showhealth.transform.position += Vector3.up;
-		showhealth.anchor = TextAnchor.MiddleCenter;
+		showhealth = gameObject.transform.GetComponentsInChildren<HealthDisplay> ()[0];
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (gameObject.tag != "Player") {
-			showhealth.text = health.ToString () + "\n\n\n";
+			showhealth.UpdateHealth(health);
 		}
-		showhealth.color = Color.Lerp(Color.red, Color.green, health/100f);
 	}
 
+	/**
+	 * Decreases the tank's health and kills the tank if the health hits 0.
+	 * @param amount: How much the tank is hurt
+	 */
 	public void Hurt (int amount){
 		health -= amount;
 		if (health <= 0)
 			Die ();
 	}
 
+	/**
+	 * Destroys the tank.
+	 */
 	private void Die(){
 		Destroy (gameObject);
 	}
