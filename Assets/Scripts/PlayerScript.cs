@@ -4,6 +4,10 @@ using System.Collections;
 public class PlayerScript : MonoBehaviour {
 	public float VerticalSpeed; // This is the movement speed that will be applied forward and backward to the tank
 	public float RotationalSpeed; // This is the rotation speed that will be applied to turn the tank left and right
+	public GameObject normalProjectile; // Basic weapon. Infinite ammo.
+	public GameObject specialProjectile; // Special weapon. Limited ammo.
+	public int specialProjectileAmmo; // Amount of special weapon shots.
+
 	// Use this for initialization
 	void Start () {
 		rigidbody.mass = 1f;
@@ -43,5 +47,22 @@ public class PlayerScript : MonoBehaviour {
 		} else {
 			rigidbody.angularDrag = 10f;
 		}
+
+		if (Input.GetMouseButtonDown (0)) {
+			Shoot (normalProjectile, 1000f);		
+		} else if (Input.GetMouseButtonDown (1) && specialProjectileAmmo > 0) {
+			Shoot (specialProjectile, 1000f);
+			specialProjectileAmmo--;
+		}
+	}
+
+	/**
+	 * Launches a projectile.
+	 * @param projectileType: which prefab to shoot. Allows for multiple projectile types.
+	 * @param power: how far the projectile should be launched.
+	 */
+	private void Shoot(GameObject projectileType, float power){
+		GameObject projectile = Instantiate (projectileType, gameObject.transform.position + gameObject.transform.forward.normalized * 2f + Vector3.up * .8f, Quaternion.identity) as GameObject;
+		projectile.rigidbody.AddForce ((gameObject.transform.forward.normalized + Vector3.up * .1f).normalized * power);
 	}
 }
