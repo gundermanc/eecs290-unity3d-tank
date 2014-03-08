@@ -247,6 +247,8 @@ GameObject:
   - 4: {fileID: 334240320}
   - 114: {fileID: 334240321}
   - 114: {fileID: 334240322}
+  - 23: {fileID: 334240324}
+  - 102: {fileID: 334240323}
   m_Layer: 0
   m_Name: TankEnemy
   m_TagString: Tank
@@ -300,6 +302,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9a38be0e0e56a47bb95b787becca20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!102 &334240323
+TextMesh:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 334240319}
+  m_Text: 100
+  m_OffsetZ: 0
+  m_CharacterSize: 1
+  m_LineSpacing: 1
+  m_Anchor: 0
+  m_Alignment: 0
+  m_TabSize: 4
+  m_FontSize: 0
+  m_FontStyle: 1
+  m_RichText: 1
+  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Color:
+    serializedVersion: 2
+    rgba: 4278190080
+--- !u!23 &334240324
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 334240319}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
 --- !u!1 &354830500
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,6 +953,10 @@ Prefab:
     - target: {fileID: 100014, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
       propertyPath: m_TagString
       value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
@@ -1723,9 +1771,11 @@ GameObject:
   - 114: {fileID: 2029826523}
   - 54: {fileID: 2029826524}
   - 114: {fileID: 2029826525}
+  - 23: {fileID: 2029826527}
+  - 102: {fileID: 2029826526}
   m_Layer: 0
   m_Name: TankPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1790,6 +1840,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9a38be0e0e56a47bb95b787becca20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!102 &2029826526
+TextMesh:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2029826521}
+  m_Text: 
+  m_OffsetZ: 0
+  m_CharacterSize: 1
+  m_LineSpacing: 1
+  m_Anchor: 4
+  m_Alignment: 1
+  m_TabSize: 4
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_RichText: 1
+  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Color:
+    serializedVersion: 2
+    rgba: 4278190080
+--- !u!23 &2029826527
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2029826521}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
 --- !u!1 &2102690991
 GameObject:
   m_ObjectHideFlags: 0
