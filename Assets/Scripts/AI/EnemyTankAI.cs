@@ -26,7 +26,8 @@ public class EnemyTankAI : MonoBehaviour {
 		/* the components for this AI module */
 		this.ai = new GenericAI(new AIComponent[] {
 			//new WanderComponent(bounds, wanderAndPatrolSpeed),
-			new PursueComponent(10, pursuitSpeed)
+			//new PursueComponent(10, pursuitSpeed)
+			new CombatComponent(25, 25)
 		}, this.npcInterface);
 	}
 	

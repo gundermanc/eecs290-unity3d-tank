@@ -25,7 +25,7 @@ public class WanderComponent : AIComponent {
 
 	public void Think(EntityInterface npcInterface) {
 		/* if we have reached our target, generate a new target */
-		if(GenericAI.Distance(npcInterface.GetPointLocation(), target) <= 1.0f) {
+		if(GenericAI.Distance(npcInterface.GetEntityLocation(), target) <= 1.0f) {
 			PickTarget();
 		}
 		return;
@@ -44,7 +44,7 @@ public class WanderComponent : AIComponent {
 	}
 
 	public bool Act(EntityInterface npcInterface) {
-		npcInterface.SetPointLocation (GenericAI.MovementVector(npcInterface.GetPointLocation ()
+		npcInterface.SetEntityLocation (GenericAI.MovementVector(npcInterface.GetEntityLocation ()
 		                                                        , target, this.speed));
 
 		return true;

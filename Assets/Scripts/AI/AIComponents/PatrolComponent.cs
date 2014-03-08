@@ -33,7 +33,7 @@ public class PatrolComponent : AIComponent {
 	 */
 	public void Think(EntityInterface npcInterface) {
 		/* if we have reached our target, generate a new target */
-		if(GenericAI.Distance(npcInterface.GetPointLocation(), territory[target]) <= 1.0f) {
+		if(GenericAI.Distance(npcInterface.GetEntityLocation(), territory[target]) <= 1.0f) {
 			NextTarget();
 		}
 		return;
@@ -54,7 +54,7 @@ public class PatrolComponent : AIComponent {
 	 * move closer.
 	 */
 	public bool Act(EntityInterface npcInterface) {
-		npcInterface.SetPointLocation (GenericAI.MovementVector(npcInterface.GetPointLocation (),
+		npcInterface.SetEntityLocation (GenericAI.MovementVector(npcInterface.GetEntityLocation (),
 		                                                        territory[target], this.speed));
 		
 		return true;

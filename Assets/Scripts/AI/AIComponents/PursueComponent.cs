@@ -37,12 +37,12 @@ public class PursueComponent : AIComponent {
 	 * player position.
 	 */
 	public bool Act(EntityInterface npcInterface) {
-		Vector3 oldPos = npcInterface.GetPointLocation ();
+		Vector3 oldPos = npcInterface.GetEntityLocation ();
 		Vector3 playerPos = npcInterface.GetPlayerLocation ();
 		if(GenericAI.Distance(oldPos, playerPos) 
 		   > this.stoppingDistance) {
 
-			npcInterface.SetPointLocation (GenericAI.MovementVector(oldPos, playerPos, speed));
+			npcInterface.SetEntityLocation (GenericAI.MovementVector(oldPos, playerPos, speed));
 
 			// end component cascade here
 			return true;

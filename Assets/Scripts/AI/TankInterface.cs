@@ -12,13 +12,17 @@ public class TankController : EntityInterface {
 		this.playerTransform = playerTransform;
 	}
 	
-	public void SetPointLocation(Vector3 location) {                
+	public void SetEntityLocation(Vector3 location) {                
 		this.transform.LookAt (2 * this.transform.position - location);
 		this.transform.position = location;
 	}
 	
-	public Vector3 GetPointLocation() {
+	public Vector3 GetEntityLocation() {
 		return this.transform.position;
+	}
+
+	public float GetEntityRotation() {
+		return transform.rotation.eulerAngles.y;
 	}
 	
 	public Vector3 GetPlayerLocation() {

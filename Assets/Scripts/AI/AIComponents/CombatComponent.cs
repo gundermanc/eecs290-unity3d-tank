@@ -14,9 +14,12 @@ public class CombatComponent : AIComponent {
 	/** Work in progress */
 	public void Think(EntityInterface npcInterface) {
 		Vector3 playerLocation = npcInterface.GetPlayerLocation ();
-		Vector3 npcLocation = npcInterface.GetPointLocation ();
-		Transform t;
+		Vector3 npcLocation = npcInterface.GetEntityLocation ();
+		Vector3 direction = (playerLocation - npcLocation).normalized;
 
+		Vector3 npcOrientation = new Vector3 (0, 0, -1);
+
+		//Debug.LogWarning (Mathf.Abs (Vector3.Angle (direction, npcOrientation)) + Mathf.Abs(npcInterface.GetEntityRotation()));
 	}
 
 	public bool Act(EntityInterface npcInterface) {
