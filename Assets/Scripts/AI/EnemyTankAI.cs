@@ -18,16 +18,19 @@ public class EnemyTankAI : MonoBehaviour {
 	private GenericAI ai;
 	/* Controls the NPC and allows the AI to interface with it */
 	private TankController npcInterface;
+	/* Handles this AI's health, ammo, and armor */
+	private AIResources resources;
 
 	// Use this for initialization
 	void Start () {
 		this.npcInterface = new TankController (transform, player.transform);
+		this.resources = new AIResources (100, 50, 10, 1);
 
 		/* the components for this AI module */
 		this.ai = new GenericAI(new AIComponent[] {
 			//new WanderComponent(bounds, wanderAndPatrolSpeed),
 			//new PursueComponent(10, pursuitSpeed)
-			new CombatComponent(25, 25)
+			new CombatComponent(resources, 25, 25, pursuitSpeed)
 		}, this.npcInterface);
 	}
 	

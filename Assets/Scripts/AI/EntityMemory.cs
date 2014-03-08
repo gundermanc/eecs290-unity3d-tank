@@ -10,27 +10,35 @@ using System;
  * @author cdg46
  */
 public class EntityMemory {
-	private Hashtable encounters;
+	// should be private but too lazy to declare this class iterable
+	public Hashtable encounters;
 
 	public EntityMemory() {
 		this.encounters = new Hashtable ();
 	}
 
-	public void ObservedEntity(FriendlyInterface friendly, Vector3 lastLocation) {
-		encounters.Add(friendly, lastLocation);
+	public void ObservedEntity(object friendly, Vector3 lastLocation) {
+		Encounter encounter = new Encounter ();
+		encounter.lastEncounterTime = DateTime.Now;
+		encounter.lastLocation = lastLocation;
+
+		if(encounters.Contains(friendly)) {
+			encounters.Remove(friendly);
+		}
+		encounters.Add(friendly, encounter);
 	}
 
-	public void ForgotEntity(FriendlyInterface friendly) {
+	public void ForgotEntity(object friendly) {
 		encounters.Remove (friendly);
 	}
 
-	public Encounter GetLastEncounter(FriendlyInterface friendly) {
+	// CAUTION: this method is broken.
+	public Encounter GetLastEncounter(object friendly) {
 		return (Encounter)encounters[friendly];
 	}
 
-	public struct Encounter {
+	public class Encounter {
 		public DateTime lastEncounterTime;
-		public int id;
 		public Vector3 lastLocation;
 	}
 }
