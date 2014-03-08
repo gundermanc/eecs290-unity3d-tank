@@ -86,7 +86,7 @@ GameObject:
   - 154: {fileID: 16617291}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -178,7 +178,7 @@ GameObject:
   - 23: {fileID: 332058260}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,9 +246,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 334240320}
   - 114: {fileID: 334240321}
+  - 114: {fileID: 334240322}
   m_Layer: 0
   m_Name: TankEnemy
-  m_TagString: Untagged
+  m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -286,7 +287,19 @@ MonoBehaviour:
     width: 20
     height: 20
   wanderAndPatrolSpeed: 1.5
+  pursuitSpeed: 2
   player: {fileID: 2029826521}
+--- !u!114 &334240322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 334240319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9a38be0e0e56a47bb95b787becca20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &354830500
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,7 +313,7 @@ GameObject:
   - 23: {fileID: 354830502}
   m_Layer: 0
   m_Name: TankBody
-  m_TagString: Untagged
+  m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -393,6 +406,34 @@ Prefab:
     - target: {fileID: 400000, guid: d813b8d38a89646c6a1b65fe23ddcd58, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d813b8d38a89646c6a1b65fe23ddcd58, type: 2}
+      propertyPath: m_TagString
+      value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: d813b8d38a89646c6a1b65fe23ddcd58, type: 2}
+      propertyPath: m_TagString
+      value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: d813b8d38a89646c6a1b65fe23ddcd58, type: 2}
+      propertyPath: m_TagString
+      value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: d813b8d38a89646c6a1b65fe23ddcd58, type: 2}
+      propertyPath: m_TagString
+      value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: d813b8d38a89646c6a1b65fe23ddcd58, type: 2}
+      propertyPath: m_TagString
+      value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: d813b8d38a89646c6a1b65fe23ddcd58, type: 2}
+      propertyPath: m_TagString
+      value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: d813b8d38a89646c6a1b65fe23ddcd58, type: 2}
+      propertyPath: m_TagString
+      value: Tank
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5400000, guid: d813b8d38a89646c6a1b65fe23ddcd58, type: 2}
@@ -559,7 +600,7 @@ GameObject:
   - 23: {fileID: 893725005}
   m_Layer: 0
   m_Name: FrontSkirt
-  m_TagString: Untagged
+  m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -853,6 +894,22 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
+      propertyPath: normalProjectile
+      value: 
+      objectReference: {fileID: 100000, guid: 29bc112cf3cb5ac4ba14871f6032bbcd, type: 2}
+    - target: {fileID: 11400000, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
+      propertyPath: specialProjectile
+      value: 
+      objectReference: {fileID: 100000, guid: 85806442c0503b243b4be363b7db096c, type: 2}
+    - target: {fileID: 11400000, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
+      propertyPath: specialProjectileAmmo
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
+      propertyPath: m_TagString
+      value: Tank
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
   m_RootGameObject: {fileID: 2029826521}
@@ -941,7 +998,7 @@ GameObject:
   - 4: {fileID: 1214924963}
   m_Layer: 0
   m_Name: Wheels
-  m_TagString: Untagged
+  m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1193,7 +1250,7 @@ GameObject:
   - 23: {fileID: 1282814351}
   m_Layer: 0
   m_Name: FrontSkirt
-  m_TagString: Untagged
+  m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1335,7 +1392,7 @@ GameObject:
   - 4: {fileID: 1452797986}
   m_Layer: 0
   m_Name: Turret
-  m_TagString: Untagged
+  m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1511,7 +1568,7 @@ GameObject:
   - 23: {fileID: 1811222779}
   m_Layer: 0
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1665,6 +1722,7 @@ GameObject:
   - 4: {fileID: 2029826522}
   - 114: {fileID: 2029826523}
   - 54: {fileID: 2029826524}
+  - 114: {fileID: 2029826525}
   m_Layer: 0
   m_Name: TankPlayer
   m_TagString: Untagged
@@ -1702,6 +1760,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VerticalSpeed: 20
   RotationalSpeed: 2
+  normalProjectile: {fileID: 100000, guid: 29bc112cf3cb5ac4ba14871f6032bbcd, type: 2}
+  specialProjectile: {fileID: 100000, guid: 85806442c0503b243b4be363b7db096c, type: 2}
+  specialProjectileAmmo: 10
 --- !u!54 &2029826524
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1718,6 +1779,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2029826525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2029826521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9a38be0e0e56a47bb95b787becca20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2102690991
 GameObject:
   m_ObjectHideFlags: 0
