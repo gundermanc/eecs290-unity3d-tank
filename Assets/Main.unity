@@ -290,6 +290,8 @@ MonoBehaviour:
   wanderAndPatrolSpeed: 1.5
   pursuitSpeed: 2
   player: {fileID: 2029826521}
+  bullet: {fileID: 100000, guid: 29bc112cf3cb5ac4ba14871f6032bbcd, type: 2}
+  firepower: 1000
 --- !u!114 &334240322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,7 +600,6 @@ GameObject:
   - 4: {fileID: 763391862}
   - 23: {fileID: 763391866}
   - 102: {fileID: 763391865}
-  - 114: {fileID: 763391864}
   - 114: {fileID: 763391863}
   m_Layer: 0
   m_Name: Health
@@ -627,17 +628,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 654e2c58d0960b942b27e3ac98b6785a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &763391864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 763391861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d88b6fb1aa287d740b8cb15aa6206c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!102 &763391865
@@ -1900,7 +1890,6 @@ GameObject:
   - 4: {fileID: 2048387446}
   - 23: {fileID: 2048387448}
   - 102: {fileID: 2048387447}
-  - 114: {fileID: 2048387450}
   - 114: {fileID: 2048387449}
   m_Layer: 0
   m_Name: Health
@@ -1971,17 +1960,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 654e2c58d0960b942b27e3ac98b6785a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2048387450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2048387445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d88b6fb1aa287d740b8cb15aa6206c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2102690991

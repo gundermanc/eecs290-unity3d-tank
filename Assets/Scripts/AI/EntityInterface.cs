@@ -12,4 +12,6 @@ public interface EntityInterface {
 	Vector3 GetEntityLocation();
 	float GetEntityRotation();
 	Vector3 GetPlayerLocation();
+	Vector3 GetEntityForward();
+	void SetEntityRotation(Vector3 location);
 }

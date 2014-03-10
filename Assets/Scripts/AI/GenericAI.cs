@@ -37,6 +37,7 @@ public class GenericAI {
 		for(int i = 0; i < this.components.Length; i++) {
 			/* try the current component, if it handles the situation (true), end loop */
 			if(this.components[i].Act(npcInterface)) {
+				Debug.Log(this.components[i]);
 				return;
 			}
 		}

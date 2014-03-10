@@ -1,20 +1,24 @@
 using UnityEngine;
 using System.Collections;
 
-public class CombatComponent : AIComponent {
+public class CombatComponent : MonoBehaviour, AIComponent {
 	private EntityMemory memory;
 	private float viewingAngleDegrees;
 	private float viewingDistance;
 	private float purseSpeed;
 	private AIResources resources;
+	private GameObject bullet;
+	private float firepower;
 
 	public CombatComponent (AIResources resources, float viewingAngleDegrees, float viewingDistance,
-	                        float pursueSpeed) {
+	                        float pursueSpeed, GameObject bullet, float firepower) {
 		this.resources = resources;
 		this.memory = new EntityMemory ();
 		this.viewingAngleDegrees = viewingAngleDegrees;
 		this.viewingDistance = viewingDistance;
 		this.purseSpeed = purseSpeed;
+		this.bullet = bullet;
+		this.firepower = firepower;
 	}
 
 	/** Work in progress */
@@ -53,7 +57,7 @@ public class CombatComponent : AIComponent {
 
 	public bool Act(EntityInterface npcInterface) {
 		EntityMemory.Encounter encounter = null;
-		float prevDistance = 0;
+		float prevDistance = float.MaxValue;
 		Vector3 opponentLocation = Vector3.zero;
 
 		// find the closest opponent
@@ -74,12 +78,17 @@ public class CombatComponent : AIComponent {
 			if(GenericAI.Distance(npcInterface.GetEntityLocation(), opponentLocation) > 30) {
 				npcInterface.SetEntityLocation (GenericAI
 				       .MovementVector(npcInterface.GetEntityLocation(), opponentLocation, purseSpeed));
+			//opponent is close
 			} else {
-				// opponent is close
-				// TODO: Implement firing mechanism stuff here
-				Debug.Log("Fire!");
+				//Face enemy
+				npcInterface.SetEntityRotation(opponentLocation);
+				//Create bullet GameObject
+				GameObject projectile = Instantiate (bullet, npcInterface.GetEntityLocation() - npcInterface.GetEntityForward() * 2f + Vector3.up * .8f, Quaternion.identity) as GameObject;
+				//Accelerate bullet in the proper direction
+				projectile.rigidbody.AddForce ((npcInterface.GetEntityForward() + Vector3.up * .1f).normalized * -firepower);
 			}
 		}
 		return false;
 	}
+
 }

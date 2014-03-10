@@ -28,4 +28,12 @@ public class TankController : EntityInterface {
 	public Vector3 GetPlayerLocation() {
 		return playerTransform.position;
 	}
+
+	public Vector3 GetEntityForward() {
+		return this.transform.forward.normalized;
+	}
+
+	public void SetEntityRotation(Vector3 location) {
+		this.transform.LookAt (2 * this.transform.position - location);
+	} 
 }

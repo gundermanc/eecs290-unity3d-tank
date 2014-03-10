@@ -13,6 +13,8 @@ public class EnemyTankAI : MonoBehaviour {
 	public float wanderAndPatrolSpeed = 1.0f;
 	public float pursuitSpeed = 2.0f;
 	public GameObject player;
+	public GameObject bullet;
+	public float firepower;
 	
 	/* the GenericAI manager */
 	private GenericAI ai;
@@ -29,8 +31,8 @@ public class EnemyTankAI : MonoBehaviour {
 		/* the components for this AI module */
 		this.ai = new GenericAI(new AIComponent[] {
 			//new WanderComponent(bounds, wanderAndPatrolSpeed),
-			//new PursueComponent(10, pursuitSpeed)
-			new CombatComponent(resources, 25, 25, pursuitSpeed)
+			new PursueComponent(10, pursuitSpeed),
+			new CombatComponent(resources, 45, 25, pursuitSpeed, bullet, firepower)
 		}, this.npcInterface);
 	}
 	
