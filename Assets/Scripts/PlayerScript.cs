@@ -48,6 +48,13 @@ public class PlayerScript : MonoBehaviour {
 			rigidbody.angularDrag = 10f;
 		}
 
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			Shoot (normalProjectile, 1000f);
+		} else if (Input.GetKeyDown (KeyCode.Tab) && specialProjectileAmmo > 0) {
+			Shoot(specialProjectile, 1000f);
+			specialProjectileAmmo--;
+		}
+
 		if (Input.GetMouseButtonDown (0)) {
 			Shoot (normalProjectile, 1000f);		
 		} else if (Input.GetMouseButtonDown (1) && specialProjectileAmmo > 0) {
