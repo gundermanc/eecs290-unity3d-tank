@@ -24,10 +24,11 @@ public class PlayerScript : MonoBehaviour {
 		 */
 		if (Input.GetAxis ("Vertical") > 0) {
 			rigidbody.drag = 0f;
-			rigidbody.AddForce (transform.forward * VerticalSpeed);
+			// Changed from addForce to velocity, there is 0 acceleration but it kinda works nicer for now
+			rigidbody.velocity = (transform.forward * VerticalSpeed);
 		} else if (Input.GetAxis ("Vertical") < 0) {
 			rigidbody.drag = 0f;
-			rigidbody.AddForce (transform.forward * (-1 * VerticalSpeed));
+			rigidbody.velocity = (transform.forward * (-1 * VerticalSpeed));
 		} else {
 			rigidbody.drag = 3f;
 		}
@@ -40,10 +41,19 @@ public class PlayerScript : MonoBehaviour {
 		 */
 		if (Input.GetAxis ("Horizontal") > 0) {
 			rigidbody.angularDrag = 0.05f;
-			rigidbody.AddTorque ((new Vector3 (0f, 1f, 0f)) * RotationalSpeed);
+			// Going to change this to a slerp and see how that goes
+
+			Vector3 RotationVector = new Vector3(transform.localRotation.x, (transform.localRotation.y + 1f), transform.localRotation.z);
+			Quaternion RotationQuaternion = Quaternion.Euler(RotationVector);
+			rigidbody.rotation = Quaternion.Slerp ((transform.localRotation), RotationQuaternion, RotationalSpeed);
+
 		} else if (Input.GetAxis ("Horizontal") < 0) {
 			rigidbody.angularDrag = 0.05f;
-			rigidbody.AddTorque ((new Vector3 (0f, -1f, 0f)) * RotationalSpeed);
+
+			Vector3 RotationVector = new Vector3(transform.localRotation.x, (transform.localRotation.y - 1f), transform.localRotation.z);
+			Quaternion RotationQuaternion = Quaternion.Euler(RotationVector);
+			rigidbody.rotation = Quaternion.Slerp ((transform.localRotation), RotationQuaternion, RotationalSpeed);
+
 		} else {
 			rigidbody.angularDrag = 10f;
 		}
