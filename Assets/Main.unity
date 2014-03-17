@@ -1077,6 +1077,10 @@ Prefab:
       propertyPath: VerticalSpeed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
+      propertyPath: RotationalSpeed
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
   m_RootGameObject: {fileID: 2029826521}
@@ -2067,7 +2071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VerticalSpeed: 10
-  RotationalSpeed: 2
+  RotationalSpeed: 50
   normalProjectile: {fileID: 100000, guid: 29bc112cf3cb5ac4ba14871f6032bbcd, type: 2}
   specialProjectile: {fileID: 100000, guid: 85806442c0503b243b4be363b7db096c, type: 2}
   specialProjectileAmmo: 10
