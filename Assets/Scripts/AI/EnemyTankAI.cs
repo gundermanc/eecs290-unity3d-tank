@@ -30,9 +30,16 @@ public class EnemyTankAI : MonoBehaviour {
 
 		/* the components for this AI module */
 		this.ai = new GenericAI(new AIComponent[] {
+<<<<<<< HEAD
 			new CombatComponent(resources, 90, 25, wanderAndPatrolSpeed, bullet, firepower, 1000), // try to attack if we've seen someone
 			new WanderComponent(bounds, wanderAndPatrolSpeed),  // haven't seen anyone, just wander
 		}, resources, this.npcInterface);
+=======
+			new PursueComponent(10, pursuitSpeed),
+			new CombatComponent(resources, 45, 25, pursuitSpeed, bullet, firepower),
+			//new WanderComponent(bounds, wanderAndPatrolSpeed)
+		}, this.npcInterface);
+>>>>>>> 7713a827b39f9b8ee646576d9ecf8c28327c5b08
 	}
 	
 	// Update is called once per frame

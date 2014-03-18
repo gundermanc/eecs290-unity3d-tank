@@ -10,8 +10,8 @@ public class PlayerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		rigidbody.mass = 1f;
-		rigidbody.maxAngularVelocity  = 5f;
+		//rigidbody.mass = 1f;
+		//rigidbody.maxAngularVelocity  = 5f;
 	}
 	
 	// Update is called once per frame
@@ -23,13 +23,12 @@ public class PlayerScript : MonoBehaviour {
 		 * Else if it is nevative then the tank should move backwards
 		 */
 		if (Input.GetAxis ("Vertical") > 0) {
-			rigidbody.drag = 0f;
-			rigidbody.AddForce (transform.forward * VerticalSpeed);
+			// Changed from addForce to velocity, there is 0 acceleration but it kinda works nicer for now
+			rigidbody.velocity = (transform.forward * VerticalSpeed);
 		} else if (Input.GetAxis ("Vertical") < 0) {
-			rigidbody.drag = 0f;
-			rigidbody.AddForce (transform.forward * (-1 * VerticalSpeed));
+			rigidbody.velocity = (transform.forward * (-1 * VerticalSpeed));
 		} else {
-			rigidbody.drag = 3f;
+			rigidbody.velocity = (transform.forward * 0f);
 		}
 
 		/**
@@ -39,13 +38,32 @@ public class PlayerScript : MonoBehaviour {
 		 * If the axis is negative then we turn the tank left
 		 */
 		if (Input.GetAxis ("Horizontal") > 0) {
-			rigidbody.angularDrag = 0.05f;
-			rigidbody.AddTorque ((new Vector3 (0f, 1f, 0f)) * RotationalSpeed);
+			//rigidbody.angularDrag = 0.05f;
+			// Going to change this to a slerp and see how that goes
+
+			// This will be the position before the rotation, plus a small added rotation around the y axis
+			Vector3 RotationVector = new Vector3(0f, RotationalSpeed, 0f);
+			transform.Rotate (RotationVector);// * Time.deltaTime);
+
+
 		} else if (Input.GetAxis ("Horizontal") < 0) {
-			rigidbody.angularDrag = 0.05f;
-			rigidbody.AddTorque ((new Vector3 (0f, -1f, 0f)) * RotationalSpeed);
+			//rigidbody.angularDrag = 0.05f;
+
+			// This is basically just a copy/paste but with a negative rotation for the opposite turn
+			Vector3 RotationVector = new Vector3(0f, -RotationalSpeed, 0f);
+			transform.Rotate (RotationVector);// * Time.deltaTime);
+
+
 		} else {
-			rigidbody.angularDrag = 10f;
+			Vector3 RotationVector = new Vector3(0f,0f,0f);
+			transform.Rotate(RotationVector);// * Time.deltaTime);
+		}
+
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			Shoot (normalProjectile, 1000f);
+		} else if (Input.GetKeyDown (KeyCode.Tab) && specialProjectileAmmo > 0) {
+			Shoot(specialProjectile, 1000f);
+			specialProjectileAmmo--;
 		}
 
 		if (Input.GetMouseButtonDown (0)) {
