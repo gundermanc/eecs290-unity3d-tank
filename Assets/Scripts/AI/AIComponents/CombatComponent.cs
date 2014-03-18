@@ -13,9 +13,11 @@ public class CombatComponent : AIComponent {
 	private float firepower;
 	private DateTime lastFireTime;
 	private int reloadMillis;
+	private float maxFireDistance;
 
 	public CombatComponent (AIResources resources, float viewingAngleDegrees, float viewingDistance,
-	                        float pursueSpeed, GameObject bullet, float firepower, int reloadMillis) {
+	                        float pursueSpeed, GameObject bullet, float firepower, int reloadMillis,
+	                        float maxFireDistance) {
 		this.resources = resources;
 		this.memory = new EntityMemory ();
 		this.viewingAngleDegrees = viewingAngleDegrees;
@@ -25,34 +27,11 @@ public class CombatComponent : AIComponent {
 		this.firepower = firepower;
 		this.lastFireTime = DateTime.Now;
 		this.reloadMillis = reloadMillis;
+		this.maxFireDistance = maxFireDistance;
 	}
 
-	/** Work in progress */
 	public void Think(EntityInterface npcInterface) {
 		return;
-	}
-
-	public static bool EntitySeen(Vector3 observerPos, float observerRotation, Vector3 observeePos, 
-	                              float viewingAngle, float viewingDistance) {
-		// get direction from one to another
-		Vector3 direction = (observeePos - observerPos).normalized;
-		
-		// calculate angle between NPC "eyes" and player location
-		float npcAngle = Vector3.Angle (direction, 
-		                                Quaternion.AngleAxis(observerRotation, Vector3.up) * new Vector3 (0, 0, -1));
-		
-		// is player in front and within viewing range
-		if(GenericAI.Distance(observerPos, observeePos) <= viewingDistance
-		   && npcAngle <= (viewingAngle / 2)) {
-			return true;
-		}
-
-		// is really really close, regardless of the direction (if someone is RIGHT behind you, you should know.
-		if(GenericAI.Distance(observerPos, observeePos) <= 7.0f) {
-			return true;
-		}
-
-		return false;
 	}
 
 	private void Fire(EntityInterface npcInterface) {
@@ -72,15 +51,14 @@ public class CombatComponent : AIComponent {
 		Vector3 npcLocation = npcInterface.GetEntityLocation();
 		float npcRotation = npcInterface.GetEntityRotation ();
 
-
-		if(EntitySeen(npcLocation, npcRotation, playerLocation, 
+		// if player is in sight, move in for attack
+		if(GenericAI.EntitySeen(npcLocation, npcRotation, playerLocation, 
 		              viewingAngleDegrees, viewingDistance)) {
 
 			// check if opponent is far away, if so, get closer, don't fire yet
-			if(GenericAI.Distance(npcLocation, playerLocation) > 15) {
+			if(GenericAI.Distance(npcLocation, playerLocation) > maxFireDistance) {
 				npcInterface.SetEntityLocation(GenericAI
 			          .MovementVector(npcLocation, playerLocation, pursueSpeed));
-				Debug.Log(pursueSpeed);
 			} else {
 				Fire (npcInterface);
 			}

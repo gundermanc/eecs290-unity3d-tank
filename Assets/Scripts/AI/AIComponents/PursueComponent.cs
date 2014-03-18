@@ -1,54 +1,86 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
 
 /**
- * AI Component that causes the NPC to purse the player. This is useful for both
- * friendlies and enemies since you want friends to have your back and enemies
- * to get in your face.
+ * Manages enemy AI's awareness of the player. Keeps track of whether or not
+ * they have seen the player. If so, the AI approaches the player. Once close
+ * enough, the CombatComponent takes over and begins attack.
  * @author Christian Gunderman
- * @author cdg46
  */
 public class PursueComponent : AIComponent {
+	private bool playerLastPosKnown;
+	private Vector3 playerLastKnownLocation;
+	private DateTime playerLastEncounterTime;
+	private float viewingDistance;
+	private float viewingAngle;
+	private float maxAttackDistance;
+	private float pursueSpeed;
+	private float wanderAndPatrolSpeed;
 
-	private float stoppingDistance;
-	private float speed;
-
-	/**
-	 * Initializes component.
-	 * @param stoppingDistance NPC stops approaching when they are this distance
-	 * from the player.
-	 * @param speed The rate at which the NPC approaches the player.
-	 */
-	public PursueComponent(float stoppingDistance, float speed) {
-		this.stoppingDistance = stoppingDistance;
-		this.speed = speed;
+	public PursueComponent(float viewingDistance, float viewingAngle, float maxAttackDistance,
+	                       float pursueSpeed, float wanderAndPatrolSpeed) {
+		this.playerLastPosKnown = false;
+		this.viewingDistance = viewingDistance;
+		this.viewingAngle = viewingAngle;
+		this.maxAttackDistance = maxAttackDistance;
+		this.pursueSpeed = pursueSpeed;
+		this.wanderAndPatrolSpeed = wanderAndPatrolSpeed;
 	}
-
-	/**
-	 * None required.
-	 */
+	
 	public void Think(EntityInterface npcInterface) {
-		return;
+		Vector3 npcLocation = npcInterface.GetEntityLocation ();
+		Vector3 playerLocation = npcInterface.GetPlayerLocation ();
+		float npcRotation = npcInterface.GetEntityRotation ();
+
+		/* if player is in visual range of NPC */
+		if(GenericAI.EntitySeen(npcLocation, npcRotation, playerLocation, 
+			                       this.viewingAngle, this.viewingDistance)) {
+
+			/* save encounter details */
+			this.playerLastPosKnown = true;
+			this.playerLastKnownLocation = playerLocation;
+			this.playerLastEncounterTime = DateTime.Now;
+		} else if(DateTime.Now.Subtract(playerLastEncounterTime).TotalSeconds > 10) {
+
+			/* it has been 10 seconds, forget about player */
+			this.playerLastPosKnown = false;
+		}
 	}
 
-	/**
-	 * If the player is outside of the stopping distance zone, head toward him.
-	 * @param npcInterface An interface containing the NPC controls and the 
-	 * player position.
-	 */
+
+
 	public bool Act(EntityInterface npcInterface) {
-		Vector3 oldPos = npcInterface.GetEntityLocation ();
-		Vector3 playerPos = npcInterface.GetPlayerLocation ();
-		if(GenericAI.Distance(oldPos, playerPos) 
-		   > this.stoppingDistance) {
+		Vector3 npcLocation = npcInterface.GetEntityLocation ();
+		Vector3 playerLocation = npcInterface.GetPlayerLocation ();
+		float npcRotation = npcInterface.GetEntityRotation ();
 
-			npcInterface.SetEntityLocation (GenericAI.MovementVector(oldPos, playerPos, speed));
+		/* if player is in visual range of NPC */
+		if (GenericAI.EntitySeen(npcLocation, npcRotation, playerLocation, 
+		                        this.viewingAngle, this.viewingDistance)) {
 
-			// end component cascade here
-			return true;
+			/* if we are close enough, let the next component handle the situation */
+			if(GenericAI.Distance(playerLocation, npcLocation) <= this.maxAttackDistance) {
+				return false;
+			} else {
+				/* too far away, get closer to the player */
+				npcInterface.SetEntityLocation(GenericAI
+				                              .MovementVector(npcLocation, playerLocation, pursueSpeed));
+				return true; // this component handled the situation
+			}
+		} else if(this.playerLastPosKnown) {
+			// we have a previous lock on the target:
+			// are we there yet? if not, approach that point.
+			if(GenericAI.Distance(npcLocation, this.playerLastKnownLocation) > 1) {
+				npcInterface.SetEntityLocation(GenericAI
+				                               .MovementVector(npcLocation, 
+				                this.playerLastKnownLocation, wanderAndPatrolSpeed));
+				return true; // this component handled the situation
+			} else {
+				// we are to the player's last known location, look around till we find player
+				npcInterface.SetEntityRotation (1);
+				return true;
+			}
 		}
-
-		// pass control onto next component
 		return false;
 	}
 }
