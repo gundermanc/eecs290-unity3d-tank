@@ -24,10 +24,11 @@ public class PlayerScript : MonoBehaviour {
 		 */
 		if (Input.GetAxis ("Vertical") > 0) {
 			rigidbody.drag = 0f;
-			rigidbody.AddForce (transform.forward * VerticalSpeed);
+			// Changed from addForce to velocity, there is 0 acceleration but it kinda works nicer for now
+			rigidbody.velocity = (transform.forward * VerticalSpeed);
 		} else if (Input.GetAxis ("Vertical") < 0) {
 			rigidbody.drag = 0f;
-			rigidbody.AddForce (transform.forward * (-1 * VerticalSpeed));
+			rigidbody.velocity = (transform.forward * (-1 * VerticalSpeed));
 		} else {
 			rigidbody.drag = 3f;
 		}
@@ -40,12 +41,30 @@ public class PlayerScript : MonoBehaviour {
 		 */
 		if (Input.GetAxis ("Horizontal") > 0) {
 			rigidbody.angularDrag = 0.05f;
-			rigidbody.AddTorque ((new Vector3 (0f, 1f, 0f)) * RotationalSpeed);
+			// Going to change this to a slerp and see how that goes
+
+			// This will be the position before the rotation, plus a small added rotation around the y axis
+			Vector3 RotationVector = new Vector3(transform.localRotation.x, (transform.localRotation.y + RotationalSpeed), transform.localRotation.z);
+			transform.Rotate (RotationVector * Time.deltaTime);
+
+
 		} else if (Input.GetAxis ("Horizontal") < 0) {
 			rigidbody.angularDrag = 0.05f;
-			rigidbody.AddTorque ((new Vector3 (0f, -1f, 0f)) * RotationalSpeed);
+
+			// This is basically just a copy/paste but with a negative rotation for the opposite turn
+			Vector3 RotationVector = new Vector3(transform.localRotation.x, (transform.localRotation.y - RotationalSpeed), transform.localRotation.z);
+			transform.Rotate (RotationVector * Time.deltaTime);
+
+
 		} else {
 			rigidbody.angularDrag = 10f;
+		}
+
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			Shoot (normalProjectile, 1000f);
+		} else if (Input.GetKeyDown (KeyCode.Tab) && specialProjectileAmmo > 0) {
+			Shoot(specialProjectile, 1000f);
+			specialProjectileAmmo--;
 		}
 
 		if (Input.GetMouseButtonDown (0)) {
