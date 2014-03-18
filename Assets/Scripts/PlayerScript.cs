@@ -8,6 +8,9 @@ public class PlayerScript : MonoBehaviour {
 	public GameObject specialProjectile; // Special weapon. Limited ammo.
 	public int specialProjectileAmmo; // Amount of special weapon shots.
 
+	private Vector3 RotationVector;
+	private Quaternion RotationQuaternion;
+
 	// Use this for initialization
 	void Start () {
 		//rigidbody.mass = 1f;
