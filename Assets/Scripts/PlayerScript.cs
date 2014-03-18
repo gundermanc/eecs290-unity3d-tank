@@ -40,20 +40,24 @@ public class PlayerScript : MonoBehaviour {
 		if (Input.GetAxis ("Horizontal") > 0) {
 			//rigidbody.angularDrag = 0.05f;
 			// Going to change this to a slerp and see how that goes
-
+			
+			
 			// This will be the position before the rotation, plus a small added rotation around the y axis
-			Vector3 RotationVector = new Vector3(0f, RotationalSpeed, 0f);
-			transform.Rotate (RotationVector);// * Time.deltaTime);
-
-
+			RotationVector = new Vector3(0, (transform.eulerAngles.y + RotationalSpeed), 0);
+			RotationQuaternion = Quaternion.Euler(RotationVector);
+			rigidbody.MoveRotation(Quaternion.Slerp(transform.localRotation, RotationQuaternion, Time.deltaTime * RotationalSpeed));
+			
+			
 		} else if (Input.GetAxis ("Horizontal") < 0) {
 			//rigidbody.angularDrag = 0.05f;
-
+			
+			Debug.Log ("Turning left.");
 			// This is basically just a copy/paste but with a negative rotation for the opposite turn
-			Vector3 RotationVector = new Vector3(0f, -RotationalSpeed, 0f);
-			transform.Rotate (RotationVector);// * Time.deltaTime);
-
-
+			RotationVector = new Vector3(0, (transform.eulerAngles.y - RotationalSpeed), 0);
+			RotationQuaternion = Quaternion.Euler(RotationVector);
+			transform.rotation = Quaternion.Lerp(transform.localRotation, RotationQuaternion, Time.deltaTime * RotationalSpeed);
+			
+			
 		} else {
 			Vector3 RotationVector = new Vector3(0f,0f,0f);
 			transform.Rotate(RotationVector);// * Time.deltaTime);
