@@ -1,40 +1,35 @@
 using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
-public class CombatComponent : MonoBehaviour, AIComponent {
+public class CombatComponent : AIComponent {
 	private EntityMemory memory;
 	private float viewingAngleDegrees;
 	private float viewingDistance;
-	private float purseSpeed;
+	private float pursueSpeed;
 	private AIResources resources;
 	private GameObject bullet;
 	private float firepower;
+	private DateTime lastFireTime;
+	private int reloadMillis;
 
 	public CombatComponent (AIResources resources, float viewingAngleDegrees, float viewingDistance,
-	                        float pursueSpeed, GameObject bullet, float firepower) {
+	                        float pursueSpeed, GameObject bullet, float firepower, int reloadMillis) {
 		this.resources = resources;
 		this.memory = new EntityMemory ();
 		this.viewingAngleDegrees = viewingAngleDegrees;
 		this.viewingDistance = viewingDistance;
-		this.purseSpeed = purseSpeed;
+		this.pursueSpeed = pursueSpeed;
 		this.bullet = bullet;
 		this.firepower = firepower;
+		this.lastFireTime = DateTime.Now;
+		this.reloadMillis = reloadMillis;
 	}
 
 	/** Work in progress */
 	public void Think(EntityInterface npcInterface) {
-		Vector3 playerLocation = npcInterface.GetPlayerLocation ();
-		Vector3 npcLocation = npcInterface.GetEntityLocation();
-		float npcRotation = npcInterface.GetEntityRotation ();
-
-		// check if player seen
-		if(EntitySeen(npcLocation, npcRotation, playerLocation, 
-		              viewingAngleDegrees, viewingDistance)) {
-
-			// we saw the player, save its location so we can decide what to do in the Act() function.
-			this.memory.ObservedEntity("player", playerLocation);
-			Debug.Log("Enemy saw you.");
-		}
+		return;
 	}
 
 	public static bool EntitySeen(Vector3 observerPos, float observerRotation, Vector3 observeePos, 
@@ -43,52 +38,55 @@ public class CombatComponent : MonoBehaviour, AIComponent {
 		Vector3 direction = (observeePos - observerPos).normalized;
 		
 		// calculate angle between NPC "eyes" and player location
-		float npcAngle = Mathf.Abs (Vector3.Angle (direction, new Vector3 (0, 0, -1))
-		                            - observerRotation);
+		float npcAngle = Vector3.Angle (direction, 
+		                                Quaternion.AngleAxis(observerRotation, Vector3.up) * new Vector3 (0, 0, -1));
 		
-		// was player seen?
+		// is player in front and within viewing range
 		if(GenericAI.Distance(observerPos, observeePos) <= viewingDistance
 		   && npcAngle <= (viewingAngle / 2)) {
+			return true;
+		}
+
+		// is really really close, regardless of the direction (if someone is RIGHT behind you, you should know.
+		if(GenericAI.Distance(observerPos, observeePos) <= 7.0f) {
 			return true;
 		}
 
 		return false;
 	}
 
-	public bool Act(EntityInterface npcInterface) {
-		EntityMemory.Encounter encounter = null;
-		float prevDistance = float.MaxValue;
-		Vector3 opponentLocation = Vector3.zero;
+	private void Fire(EntityInterface npcInterface) {
+		if(DateTime.Now.Subtract(this.lastFireTime).TotalMilliseconds >= reloadMillis) {
 
-		// find the closest opponent
-		// SHOULD iterate through list of items seen and pick the closest but not working :(
-		foreach (DictionaryEntry e in this.memory.encounters) {
-			EntityMemory.Encounter e2 = (EntityMemory.Encounter)e.Value;
-			float distance = GenericAI.Distance(e2.lastLocation, npcInterface.GetEntityLocation());
-			if(distance < prevDistance) {
-				encounter = e2;
-				opponentLocation = e2.lastLocation;
-			}
+			npcInterface.SetEntityRotation(npcInterface.GetPlayerLocation());
+			// fire bullets
+			GameObject projectile = MonoBehaviour.Instantiate (bullet, npcInterface.GetEntityLocation() - npcInterface.GetEntityForward() * 2f + Vector3.up * .8f, Quaternion.identity) as GameObject;
+			//Accelerate bullet in the proper direction
+			projectile.rigidbody.AddForce ((npcInterface.GetEntityForward() + Vector3.up * .1f).normalized * -firepower);
+			this.lastFireTime = DateTime.Now;
 		}
-
-		// if there was an item seen, do some stuff
-		if(encounter != null) {
-			Debug.Log("Enemy Acting.");
-			// check if opponent is far away, if so, get closer
-			if(GenericAI.Distance(npcInterface.GetEntityLocation(), opponentLocation) > 30) {
-				npcInterface.SetEntityLocation (GenericAI
-				       .MovementVector(npcInterface.GetEntityLocation(), opponentLocation, purseSpeed));
-			//opponent is close
-			} else {
-				//Face enemy
-				npcInterface.SetEntityRotation(opponentLocation);
-				//Create bullet GameObject
-				GameObject projectile = Instantiate (bullet, npcInterface.GetEntityLocation() - npcInterface.GetEntityForward() * 2f + Vector3.up * .8f, Quaternion.identity) as GameObject;
-				//Accelerate bullet in the proper direction
-				projectile.rigidbody.AddForce ((npcInterface.GetEntityForward() + Vector3.up * .1f).normalized * -firepower);
-			}
-		}
-		return false;
 	}
 
+	public bool Act(EntityInterface npcInterface) {
+		Vector3 playerLocation = npcInterface.GetPlayerLocation ();
+		Vector3 npcLocation = npcInterface.GetEntityLocation();
+		float npcRotation = npcInterface.GetEntityRotation ();
+
+
+		if(EntitySeen(npcLocation, npcRotation, playerLocation, 
+		              viewingAngleDegrees, viewingDistance)) {
+
+			// check if opponent is far away, if so, get closer, don't fire yet
+			if(GenericAI.Distance(npcLocation, playerLocation) > 15) {
+				npcInterface.SetEntityLocation(GenericAI
+			          .MovementVector(npcLocation, playerLocation, pursueSpeed));
+				Debug.Log(pursueSpeed);
+			} else {
+				Fire (npcInterface);
+			}
+			return true;
+		}
+
+		return false;
+	}
 }

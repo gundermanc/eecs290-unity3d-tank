@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using System;
 
 /** 
@@ -11,30 +11,30 @@ using System;
  */
 public class EntityMemory {
 	// should be private but too lazy to declare this class iterable
-	public Hashtable encounters;
+	public Dictionary<object, Encounter> encounters;
 
 	public EntityMemory() {
-		this.encounters = new Hashtable ();
+		this.encounters = new Dictionary<object, Encounter> ();
 	}
 
-	public void ObservedEntity(object friendly, Vector3 lastLocation) {
+	public void ObservedEntity(object entity, Vector3 lastLocation) {
 		Encounter encounter = new Encounter ();
 		encounter.lastEncounterTime = DateTime.Now;
 		encounter.lastLocation = lastLocation;
 
-		if(encounters.Contains(friendly)) {
-			encounters.Remove(friendly);
+		if(encounters.ContainsKey(entity)) {
+			encounters.Remove(entity);
 		}
-		encounters.Add(friendly, encounter);
+		encounters.Add(entity, encounter);
 	}
 
-	public void ForgotEntity(object friendly) {
-		encounters.Remove (friendly);
+	public void ForgetEntity(object entity) {
+		encounters.Remove (entity);
 	}
 
 	// CAUTION: this method is broken.
-	public Encounter GetLastEncounter(object friendly) {
-		return (Encounter)encounters[friendly];
+	public Encounter GetLastEncounter(object entity) {
+		return (Encounter)encounters[entity];
 	}
 
 	public class Encounter {

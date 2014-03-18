@@ -3,19 +3,17 @@ using System.Collections;
 
 public class Tank : MonoBehaviour {
 
-	private int health; //Tank's health points (out of 100)
 	private HealthDisplay showhealth; //Object that displays the health of the tank
 
 	// Use this for initialization
 	void Start () {
-		health = 100;
 		showhealth = gameObject.transform.GetComponentsInChildren<HealthDisplay> ()[0];
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (gameObject.tag != "Player") {
-			showhealth.UpdateHealth(health);
+			showhealth.UpdateHealth(gameObject.GetComponent<EnemyTankAI> ().GetAIStats ().GetHealthPoints());
 		}
 	}
 
@@ -24,9 +22,10 @@ public class Tank : MonoBehaviour {
 	 * @param amount: How much the tank is hurt
 	 */
 	public void Hurt (int amount){
-		health -= amount;
-		if (health <= 0)
-			Die ();
+		EnemyTankAI ai = gameObject.GetComponent<EnemyTankAI> ();
+		if(ai != null) {
+			ai.GetAIStats ().Damage (amount);
+		}
 	}
 
 	/**

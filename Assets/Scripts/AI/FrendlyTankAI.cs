@@ -23,11 +23,14 @@ public class FriendlyTankAI : MonoBehaviour, FriendlyInterface {
 	void Start () {
 		this.npcInterface = new TankController (transform, player.transform);
 
+		/* the stats for this AI */
+		AIResources resources = new AIResources (100, 50, 10, 1);
+
 		/* the components for this AI module */
 		this.ai = new GenericAI(new AIComponent[] {
 			//new WanderComponent(bounds, wanderAndPatrolSpeed),
 			new PursueComponent(10, pursuitSpeed)
-		}, this.npcInterface);
+		}, resources, this.npcInterface);
 	}
 	
 	// Update is called once per frame

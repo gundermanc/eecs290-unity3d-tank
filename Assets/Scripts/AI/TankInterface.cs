@@ -35,5 +35,6 @@ public class TankController : EntityInterface {
 
 	public void SetEntityRotation(Vector3 location) {
 		this.transform.LookAt (2 * this.transform.position - location);
+		//this.transform.rotation = Quaternion.LookRotation (transform.position - location);
 	} 
 }

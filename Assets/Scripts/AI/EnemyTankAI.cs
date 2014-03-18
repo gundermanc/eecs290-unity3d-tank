@@ -20,25 +20,28 @@ public class EnemyTankAI : MonoBehaviour {
 	private GenericAI ai;
 	/* Controls the NPC and allows the AI to interface with it */
 	private TankController npcInterface;
-	/* Handles this AI's health, ammo, and armor */
-	private AIResources resources;
 
 	// Use this for initialization
 	void Start () {
 		this.npcInterface = new TankController (transform, player.transform);
-		this.resources = new AIResources (100, 50, 10, 1);
+
+		/* the stats for this AI */
+		AIResources resources = new AIResources (100, 50, 10, 1);
 
 		/* the components for this AI module */
 		this.ai = new GenericAI(new AIComponent[] {
-			//new WanderComponent(bounds, wanderAndPatrolSpeed),
-			new PursueComponent(10, pursuitSpeed),
-			new CombatComponent(resources, 45, 25, pursuitSpeed, bullet, firepower)
-		}, this.npcInterface);
+			new CombatComponent(resources, 90, 25, wanderAndPatrolSpeed, bullet, firepower, 1000), // try to attack if we've seen someone
+			new WanderComponent(bounds, wanderAndPatrolSpeed),  // haven't seen anyone, just wander
+		}, resources, this.npcInterface);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		this.ai.Think ();
 		this.ai.Act ();
+	}
+
+	public AIResources GetAIStats() {
+		return ai.GetAIStats ();
 	}
 }

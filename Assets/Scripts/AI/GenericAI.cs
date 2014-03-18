@@ -12,6 +12,8 @@ public class GenericAI {
 	private AIComponent[] components = null;
 	/* holds the controls for the entity */
 	private EntityInterface npcInterface;
+	/* holds the AI's HP, armor, skill, etc stats */
+	private AIResources resources;
 
 	/**
 	 * Instantiates the GenericAI with the specified components.
@@ -20,8 +22,9 @@ public class GenericAI {
 	 * try to respond, and return true if it can handle the situation, and false
 	 * if not.
 	 */
-	public GenericAI(AIComponent[] components, EntityInterface npcInterface) {
+	public GenericAI(AIComponent[] components, AIResources resources, EntityInterface npcInterface) {
 		this.components = components;
+		this.resources = resources;
 		this.npcInterface = npcInterface;
 	}
 
@@ -37,7 +40,6 @@ public class GenericAI {
 		for(int i = 0; i < this.components.Length; i++) {
 			/* try the current component, if it handles the situation (true), end loop */
 			if(this.components[i].Act(npcInterface)) {
-				Debug.Log(this.components[i]);
 				return;
 			}
 		}
@@ -66,5 +68,13 @@ public class GenericAI {
 
 	public static float Distance(Vector3 v1, Vector3 v2) {
 		return Mathf.Sqrt (Mathf.Pow ((v1.x - v2.x), 2) + Mathf.Pow ((v1.y - v2.y), 2) + Mathf.Pow ((v1.z - v2.z), 2));
+	}
+
+	
+	/**
+	 * Get the stats for this particular enemy tank
+	 */
+	public AIResources GetAIStats() {
+		return this.resources;
 	}
 }
