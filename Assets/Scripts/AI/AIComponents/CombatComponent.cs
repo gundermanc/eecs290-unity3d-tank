@@ -39,7 +39,7 @@ public class CombatComponent : AIComponent {
 
 			npcInterface.SetEntityRotation(npcInterface.GetPlayerLocation());
 			// fire bullets
-			Transform barrel = npcInterface.GetEntityTransform().GetChild(3).GetChild(0).GetChild(0);
+			Transform barrel = npcInterface.GetEntityTransform().GetChild(2).GetChild(0);
 			GameObject projectile = MonoBehaviour.Instantiate (bullet, barrel.position + barrel.up.normalized * -2f, Quaternion.identity) as GameObject;
 			projectile.rigidbody.AddForce ((-barrel.up).normalized * firepower);
 			this.lastFireTime = DateTime.Now;
