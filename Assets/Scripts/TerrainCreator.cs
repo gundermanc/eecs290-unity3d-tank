@@ -8,6 +8,7 @@ public class TerrainCreator : MonoBehaviour {
 		TerrainCreator.createEdges ();
 		TerrainCreator.createCenter ();
 		TerrainCreator.smooth ();
+		TerrainCreator.addGrass ();
 	}
 	
 	static void createEdges() {
@@ -64,5 +65,15 @@ public class TerrainCreator : MonoBehaviour {
 			}
 		}
 		Terrain.activeTerrain.terrainData.SetHeights(0, 0, smoothHeights);
+	}
+
+	static void addGrass() {
+		int[,] grass = new int[100, 100];
+		for(int i = 0; i < 100; i++) {
+			for(int j = 0; j < 100; j++) {
+				grass[i,j] = (int)Random.Range (0, 2);
+			}
+		}
+		Terrain.activeTerrain.terrainData.SetDetailLayer (0, 0, 0, grass);
 	}
 }
