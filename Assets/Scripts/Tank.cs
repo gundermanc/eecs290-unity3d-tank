@@ -21,7 +21,7 @@ public class Tank : MonoBehaviour {
 	 * Decreases the tank's health and kills the tank if the health hits 0.
 	 * @param amount: How much the tank is hurt
 	 */
-	public void Hurt (int amount){
+	public void Hurt (float amount){
 		EnemyTankAI ai = gameObject.GetComponent<EnemyTankAI> ();
 		if(ai != null) {
 			ai.GetAIStats ().Damage (amount);

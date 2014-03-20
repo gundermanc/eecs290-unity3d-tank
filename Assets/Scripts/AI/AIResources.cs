@@ -69,16 +69,16 @@ public class AIResources {
 		return this.armor;
 	}
 
-	public void Damage(int amount) {
-		this.healthPoints -= amount * (int)Mathf.Ceil (10.0f / (float)armor == 0 ? 1:armor);
+	public void Damage(float amount) {
+		this.healthPoints -= Mathf.CeilToInt(amount/armor);
 		this.armor -= armorDeteriorationRate;
 
 		if(this.healthPoints < 0) {
 			this.healthPoints = 0;
 		}
 
-		if(this.armor < 0) {
-			this.armor = 0;
+		if(this.armor < 1) {
+			this.armor = 1;
 		}
 	}
 }
