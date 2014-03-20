@@ -25,6 +25,7 @@ public class WanderComponent : AIComponent {
 
 	public void Think(EntityInterface npcInterface) {
 		/* if we have reached our target, generate a new target */
+		Debug.Log (GenericAI.Distance(npcInterface.GetEntityLocation(), target));
 		if(GenericAI.Distance(npcInterface.GetEntityLocation(), target) <= 1.0f) {
 			PickTarget();
 		}

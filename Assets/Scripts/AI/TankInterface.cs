@@ -21,6 +21,10 @@ public class TankController : EntityInterface {
 		return this.transform.position;
 	}
 
+	public Transform GetEntityTransform(){
+		return this.transform;
+	}
+
 	public float GetEntityRotation() {
 		return this.transform.rotation.eulerAngles.y;
 	}

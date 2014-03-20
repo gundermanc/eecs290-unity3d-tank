@@ -54,7 +54,7 @@ public class PlayerScript : MonoBehaviour {
 		} else if (Input.GetAxis ("Horizontal") < 0) {
 			//rigidbody.angularDrag = 0.05f;
 			
-			Debug.Log ("Turning left.");
+			//Debug.Log ("Turning left.");
 			// This is basically just a copy/paste but with a negative rotation for the opposite turn
 			RotationVector = new Vector3(0, (transform.eulerAngles.y - RotationalSpeed), 0);
 			RotationQuaternion = Quaternion.Euler(RotationVector);
@@ -87,7 +87,8 @@ public class PlayerScript : MonoBehaviour {
 	 * @param power: how far the projectile should be launched.
 	 */
 	private void Shoot(GameObject projectileType, float power){
-		GameObject projectile = Instantiate (projectileType, gameObject.transform.position + gameObject.transform.forward.normalized * 2f + Vector3.up * .8f, Quaternion.identity) as GameObject;
-		projectile.rigidbody.AddForce ((gameObject.transform.forward.normalized + Vector3.up * .1f).normalized * power);
+		Transform barrel = gameObject.transform.GetChild(3).GetChild(0).GetChild(0);
+		GameObject projectile = Instantiate (projectileType, barrel.position + barrel.up.normalized * -2f, Quaternion.identity) as GameObject;
+		projectile.rigidbody.AddForce ((-barrel.up).normalized * power);
 	}
 }
