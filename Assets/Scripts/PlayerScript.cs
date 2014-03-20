@@ -7,6 +7,7 @@ public class PlayerScript : MonoBehaviour {
 	public GameObject normalProjectile; // Basic weapon. Infinite ammo.
 	public GameObject specialProjectile; // Special weapon. Limited ammo.
 	public int specialProjectileAmmo; // Amount of special weapon shots.
+	public bool IsTouchingGround;
 	
 	private Vector3 RotationVector;
 	private Quaternion RotationQuaternion;
@@ -25,13 +26,15 @@ public class PlayerScript : MonoBehaviour {
 		 * If the Vertical axis is positive that means the tank should forwards
 		 * Else if it is nevative then the tank should move backwards
 		 */
-		if (Input.GetAxis ("Vertical") > 0) {
-			// Changed from addForce to velocity, there is 0 acceleration but it kinda works nicer for now
-			rigidbody.velocity = (transform.forward * VerticalSpeed);
-		} else if (Input.GetAxis ("Vertical") < 0) {
-			rigidbody.velocity = (transform.forward * (-1 * VerticalSpeed));
-		} else {
-			rigidbody.velocity = (transform.forward * 0f);
+		if(IsTouchingGround){
+			if (Input.GetAxis ("Vertical") > 0) {
+				// Changed from addForce to velocity, there is 0 acceleration but it kinda works nicer for now
+				rigidbody.velocity = (transform.forward * VerticalSpeed);
+			} else if (Input.GetAxis ("Vertical") < 0) {
+				rigidbody.velocity = (transform.forward * (-1 * VerticalSpeed));
+			} else {
+				rigidbody.velocity = (transform.forward * 0f);
+			}
 		}
 		
 		/**
@@ -89,5 +92,9 @@ public class PlayerScript : MonoBehaviour {
 		Transform barrel = gameObject.transform.GetChild(3).GetChild(0).GetChild(0);
 		GameObject projectile = Instantiate (projectileType, barrel.position + barrel.up.normalized * -2f, Quaternion.identity) as GameObject;
 		projectile.rigidbody.AddForce ((-barrel.up).normalized * power);
+	}
+
+	public void TouchingGround(bool Correct){
+		IsTouchingGround = Correct;
 	}
 }
