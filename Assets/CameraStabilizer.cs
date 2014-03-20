@@ -17,8 +17,6 @@ public class CameraStabilizer : MonoBehaviour {
 		playerpos += 5*playerbackwards;
 		playerpos.y += 2;
 		transform.position = playerpos;
-		transform.rotation = Quaternion.Euler (10,
-		                                       GameObject.Find ("TankPlayer").GetComponent<Transform> ().eulerAngles.y,
-		                                       GameObject.Find ("TankPlayer").GetComponent<Transform> ().eulerAngles.z);	
+		transform.rotation = Quaternion.Euler (10, GameObject.Find ("TankPlayer").GetComponent<Transform> ().eulerAngles.y, 0);	
 	}
 }
