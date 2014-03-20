@@ -29,7 +29,7 @@ public class FriendlyTankAI : MonoBehaviour, FriendlyInterface {
 		/* the components for this AI module */
 		this.ai = new GenericAI(new AIComponent[] {
 			//new WanderComponent(bounds, wanderAndPatrolSpeed),
-			new PursueComponent(10, pursuitSpeed)
+			new FollowComponent(10, pursuitSpeed)
 		}, resources, this.npcInterface);
 	}
 	

@@ -15,6 +15,10 @@ public class EnemyTankAI : MonoBehaviour {
 	public GameObject player;
 	public GameObject bullet;
 	public float firepower;
+	public float viewingAngle = 90;
+	public float viewingDistance = 25;
+	public int reloadTimeMillis = 1000;
+	public float maxAttackDistance = 15;
 	
 	/* the GenericAI manager */
 	private GenericAI ai;
@@ -30,8 +34,23 @@ public class EnemyTankAI : MonoBehaviour {
 
 		/* the components for this AI module */
 		this.ai = new GenericAI(new AIComponent[] {
-			new CombatComponent(resources, 90, 25, wanderAndPatrolSpeed, bullet, firepower, 1000), // try to attack if we've seen someone
-			new WanderComponent(bounds, wanderAndPatrolSpeed),  // haven't seen anyone, just wander
+			/**
+			 * Check for the player in viewDistance. If in viewDistance, get within
+			 * maxAttackDistance and shoot bullets every reloadTimeMillis milliseconds.
+			 */
+			new CombatComponent(resources, viewingAngle, viewingDistance
+			                    , wanderAndPatrolSpeed, bullet, firepower, 
+			                    reloadTimeMillis, maxAttackDistance),
+			/**
+			 * Player is out of eye sight of this tank. Check to see if we remember seeing
+			 * the player before. If so, go there and rotate around 360 degrees and look for it.
+			 */
+			new PursueComponent(viewingDistance, viewingAngle, 
+			                    maxAttackDistance, pursuitSpeed, wanderAndPatrolSpeed),
+			/**
+			 * Player is out of sight. Patrol random points within my "territory" rectangle.
+			 */
+			new WanderComponent(bounds, wanderAndPatrolSpeed), 
 		}, resources, this.npcInterface);
 	}
 	

@@ -22,7 +22,7 @@ public class TankController : EntityInterface {
 	}
 
 	public float GetEntityRotation() {
-		return transform.rotation.eulerAngles.y;
+		return this.transform.rotation.eulerAngles.y;
 	}
 	
 	public Vector3 GetPlayerLocation() {
@@ -37,4 +37,8 @@ public class TankController : EntityInterface {
 		this.transform.LookAt (2 * this.transform.position - location);
 		//this.transform.rotation = Quaternion.LookRotation (transform.position - location);
 	} 
+
+	public void SetEntityRotation(float rotation) {
+		this.transform.Rotate(Vector3.up * rotation);
+	}
 }

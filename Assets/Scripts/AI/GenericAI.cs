@@ -28,6 +28,29 @@ public class GenericAI {
 		this.npcInterface = npcInterface;
 	}
 
+	public static bool EntitySeen(Vector3 observerPos, float observerRotation, Vector3 observeePos, 
+	                              float viewingAngle, float viewingDistance) {
+		// get direction from one to another
+		Vector3 direction = (observeePos - observerPos).normalized;
+		
+		// calculate angle between NPC "eyes" and player location
+		float npcAngle = Vector3.Angle (direction, 
+		                                Quaternion.AngleAxis(observerRotation, Vector3.up) * new Vector3 (0, 0, -1));
+		
+		// is player in front and within viewing range
+		if(GenericAI.Distance(observerPos, observeePos) <= viewingDistance
+		   && npcAngle <= (viewingAngle / 2)) {
+			return true;
+		}
+		
+		// is really really close, regardless of the direction (if someone is RIGHT behind you, you should know.
+		if(GenericAI.Distance(observerPos, observeePos) <= 7.0f) {
+			return true;
+		}
+		
+		return false;
+	}
+
 	public void Think() {
 		for(int i = 0; i < this.components.Length; i++) {
 

@@ -183,6 +183,7 @@ GameObject:
   - 4: {fileID: 334240320}
   - 114: {fileID: 334240321}
   - 114: {fileID: 334240322}
+  - 54: {fileID: 334240323}
   m_Layer: 0
   m_Name: TankEnemy
   m_TagString: Tank
@@ -197,7 +198,7 @@ Transform:
   m_PrefabInternal: {fileID: 454186964}
   m_GameObject: {fileID: 334240319}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
-  m_LocalPosition: {x: -15.6717644, y: .645708621, z: -11.2578278}
+  m_LocalPosition: {x: -15.6717634, y: 6.66872025, z: -19.5805492}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 893725008}
@@ -219,8 +220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounds:
     serializedVersion: 2
-    x: -45
-    y: -10
+    x: -15
+    y: 1.79999995
     width: 20
     height: 20
   wanderAndPatrolSpeed: 1.5
@@ -228,6 +229,10 @@ MonoBehaviour:
   player: {fileID: 2029826521}
   bullet: {fileID: 100000, guid: 29bc112cf3cb5ac4ba14871f6032bbcd, type: 2}
   firepower: 1000
+  viewingAngle: 90
+  viewingDistance: 25
+  reloadTimeMillis: 1000
+  maxAttackDistance: 15
 --- !u!114 &334240322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,6 +244,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9a38be0e0e56a47bb95b787becca20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &334240323
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 334240319}
+  serializedVersion: 2
+  m_Mass: 1000
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &354830500
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,15 +340,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: d813b8d38a89646c6a1b65fe23ddcd58, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -15.6717644
+      value: -15.6717634
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d813b8d38a89646c6a1b65fe23ddcd58, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .645708621
+      value: 6.66872025
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d813b8d38a89646c6a1b65fe23ddcd58, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -11.2578278
+      value: -19.5805492
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d813b8d38a89646c6a1b65fe23ddcd58, type: 2}
       propertyPath: m_LocalRotation.x
@@ -869,15 +889,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 11.8340073
+      value: 20.9602394
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 3.85420251
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
       propertyPath: m_LocalPosition.z
-      value: .723516345
+      value: 41.1039886
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
       propertyPath: m_LocalRotation.x
@@ -950,6 +970,18 @@ Prefab:
     - target: {fileID: 5400002, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400002, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400002, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
+      propertyPath: m_Mass
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400002, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
+      propertyPath: m_Drag
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
@@ -1854,7 +1886,7 @@ Transform:
   m_PrefabInternal: {fileID: 1144605050}
   m_GameObject: {fileID: 2029826521}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
-  m_LocalPosition: {x: 11.8340073, y: 1, z: .723516345}
+  m_LocalPosition: {x: 20.9602394, y: 3.85420251, z: 41.1039886}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1282814350}
@@ -1889,8 +1921,8 @@ Rigidbody:
   m_PrefabInternal: {fileID: 1144605050}
   m_GameObject: {fileID: 2029826521}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 1000
+  m_Drag: 1
   m_AngularDrag: .0500000007
   m_UseGravity: 1
   m_IsKinematic: 0
