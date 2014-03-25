@@ -63,17 +63,14 @@ public class PursueComponent : AIComponent {
 				return false;
 			} else {
 				/* too far away, get closer to the player */
-				npcInterface.SetEntityLocation(GenericAI
-				                              .MovementVector(npcLocation, playerLocation, pursueSpeed));
+				npcInterface.SetEntityLocation(playerLocation, pursueSpeed);
 				return true; // this component handled the situation
 			}
 		} else if(this.playerLastPosKnown) {
 			// we have a previous lock on the target:
 			// are we there yet? if not, approach that point.
 			if(GenericAI.Distance(npcLocation, this.playerLastKnownLocation) > 1) {
-				npcInterface.SetEntityLocation(GenericAI
-				                               .MovementVector(npcLocation, 
-				                this.playerLastKnownLocation, wanderAndPatrolSpeed));
+				npcInterface.SetEntityLocation(this.playerLastKnownLocation, wanderAndPatrolSpeed);
 				return true; // this component handled the situation
 			} else {
 				// we are to the player's last known location, look around till we find player

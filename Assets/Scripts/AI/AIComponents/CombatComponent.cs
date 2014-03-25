@@ -57,8 +57,7 @@ public class CombatComponent : AIComponent {
 
 			// check if opponent is far away, if so, get closer, don't fire yet
 			if(GenericAI.Distance(npcLocation, playerLocation) > maxFireDistance) {
-				npcInterface.SetEntityLocation(GenericAI
-			          .MovementVector(npcLocation, playerLocation, pursueSpeed));
+				npcInterface.SetEntityLocation(playerLocation, pursueSpeed);
 			} else {
 				Fire (npcInterface);
 			}

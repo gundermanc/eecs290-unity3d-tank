@@ -198,7 +198,7 @@ Transform:
   m_PrefabInternal: {fileID: 454186964}
   m_GameObject: {fileID: 334240319}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
-  m_LocalPosition: {x: -15.6717634, y: 6.66872025, z: -19.5805492}
+  m_LocalPosition: {x: -15.6717634, y: 3.01215792, z: -19.5805492}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 893725008}
@@ -220,12 +220,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounds:
     serializedVersion: 2
-    x: -15
-    y: 1.79999995
+    x: 0
+    y: 0
     width: 20
     height: 20
-  wanderAndPatrolSpeed: 1.5
-  pursuitSpeed: 2
+  wanderAndPatrolSpeed: 5
+  pursuitSpeed: 10
   player: {fileID: 2029826521}
   bullet: {fileID: 100000, guid: 29bc112cf3cb5ac4ba14871f6032bbcd, type: 2}
   firepower: 1000
@@ -252,7 +252,7 @@ Rigidbody:
   m_GameObject: {fileID: 334240319}
   serializedVersion: 2
   m_Mass: 1000
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: .0500000007
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -396,7 +396,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d813b8d38a89646c6a1b65fe23ddcd58, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 6.66872025
+      value: 3.01215792
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d813b8d38a89646c6a1b65fe23ddcd58, type: 2}
       propertyPath: m_LocalPosition.z

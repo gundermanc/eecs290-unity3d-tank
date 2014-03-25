@@ -42,7 +42,7 @@ public class FollowComponent : AIComponent {
 		if(GenericAI.Distance(oldPos, playerPos) 
 		   > this.stoppingDistance) {
 
-			npcInterface.SetEntityLocation (GenericAI.MovementVector(oldPos, playerPos, speed));
+			npcInterface.SetEntityLocation (playerPos, speed);
 
 			// end component cascade here
 			return true;
