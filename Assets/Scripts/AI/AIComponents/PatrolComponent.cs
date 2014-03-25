@@ -54,8 +54,8 @@ public class PatrolComponent : AIComponent {
 	 * move closer.
 	 */
 	public bool Act(EntityInterface npcInterface) {
-		npcInterface.SetEntityLocation (GenericAI.MovementVector(npcInterface.GetEntityLocation (),
-		                                                        territory[target], this.speed));
+		npcInterface.SetEntityLocation (npcInterface.GetEntityLocation (),
+		                                                        this.speed);
 		
 		return true;
 	}

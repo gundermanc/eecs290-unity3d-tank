@@ -8,7 +8,7 @@ using System.Collections;
  * @author cdg46
  */
 public interface EntityInterface {
-	void SetEntityLocation(Vector3 location);
+	void SetEntityLocation(Vector3 location, float speed);
 	Vector3 GetEntityLocation();
 	float GetEntityRotation();
 	Vector3 GetPlayerLocation();
