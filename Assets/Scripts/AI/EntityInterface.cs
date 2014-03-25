@@ -16,4 +16,5 @@ public interface EntityInterface {
 	void SetEntityRotation(Vector3 location);
 	void SetEntityRotation(float rotation);
 	Transform GetEntityTransform ();
+	int GetEntityHealth();
 }

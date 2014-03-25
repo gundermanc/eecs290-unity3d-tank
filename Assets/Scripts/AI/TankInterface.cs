@@ -45,4 +45,9 @@ public class TankController : EntityInterface {
 	public void SetEntityRotation(float rotation) {
 		this.transform.Rotate(Vector3.up * rotation);
 	}
+
+	public int GetEntityHealth(){
+		//return this.transform.GetComponent<AIResources>().GetHealthPoints();
+		return 1;
+	}
 }
