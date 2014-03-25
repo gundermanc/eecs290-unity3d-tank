@@ -12,6 +12,10 @@ public class StandardBullet : MonoBehaviour {
 		active = true;
 		gameObject.GetComponent<TrailRenderer>().material.SetColor("_Color", Color.yellow);
 	}
+
+	void OnEnable() {
+		tag = "Bullet";
+	}
 	
 	// Update is called once per frame
 	void Update () {
