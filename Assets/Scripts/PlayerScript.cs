@@ -11,11 +11,13 @@ public class PlayerScript : MonoBehaviour {
 	
 	private Vector3 RotationVector;
 	private Quaternion RotationQuaternion;
+	private bool ThirdPersonMode;
 	
 	// Use this for initialization
 	void Start () {
 		//rigidbody.mass = 1f;
 		//rigidbody.maxAngularVelocity  = 5f;
+		ThirdPersonMode = true;
 	}
 	
 	// Update is called once per frame
@@ -80,6 +82,18 @@ public class PlayerScript : MonoBehaviour {
 		} else if (Input.GetMouseButtonDown (1) && specialProjectileAmmo > 0) {
 			Shoot (specialProjectile, 1000f);
 			specialProjectileAmmo--;
+		}
+
+		if(Input.GetKeyDown(KeyCode.LeftShift)){
+			// This means going to first person mode
+			if(ThirdPersonMode){
+				GameObject.Find("BarrelCamera").GetComponent<Camera>().depth = -1;
+				ThirdPersonMode = false;
+				// This means going to thrid person mode
+			} else {
+				GameObject.Find("BarrelCamera").GetComponent<Camera>().depth = -2;
+				ThirdPersonMode = true;
+			}
 		}
 	}
 	
