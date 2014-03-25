@@ -4,12 +4,13 @@ using System;
 /**
  * Manages enemy AI's awareness of the player. Keeps track of whether or not
  * they have seen the player. If so, the AI approaches the player. Once close
- * enough, the CombatComponent takes over and begins attack.
+ * enough, the CombatComponent takes over and begins attack. Also, player last seen
+ * position is STATIC so one one sees you, they all know where you were sighted last.
  * @author Christian Gunderman
  */
 public class PursueComponent : AIComponent {
-	private bool playerLastPosKnown;
-	private Vector3 playerLastKnownLocation;
+	private static bool playerLastPosKnown;
+	private static Vector3 playerLastKnownLocation;
 	private DateTime playerLastEncounterTime;
 	private float viewingDistance;
 	private float viewingAngle;
@@ -19,7 +20,7 @@ public class PursueComponent : AIComponent {
 
 	public PursueComponent(float viewingDistance, float viewingAngle, float maxAttackDistance,
 	                       float pursueSpeed, float wanderAndPatrolSpeed) {
-		this.playerLastPosKnown = false;
+		playerLastPosKnown = false;
 		this.viewingDistance = viewingDistance;
 		this.viewingAngle = viewingAngle;
 		this.maxAttackDistance = maxAttackDistance;
@@ -37,13 +38,13 @@ public class PursueComponent : AIComponent {
 			                       this.viewingAngle, this.viewingDistance)) {
 
 			/* save encounter details */
-			this.playerLastPosKnown = true;
-			this.playerLastKnownLocation = playerLocation;
+			playerLastPosKnown = true;
+			playerLastKnownLocation = playerLocation;
 			this.playerLastEncounterTime = DateTime.Now;
 		} else if(DateTime.Now.Subtract(playerLastEncounterTime).TotalSeconds > 10) {
 
 			/* it has been 10 seconds, forget about player */
-			this.playerLastPosKnown = false;
+			playerLastPosKnown = false;
 		}
 	}
 
@@ -66,11 +67,11 @@ public class PursueComponent : AIComponent {
 				npcInterface.SetEntityLocation(playerLocation, pursueSpeed);
 				return true; // this component handled the situation
 			}
-		} else if(this.playerLastPosKnown) {
+		} else if(playerLastPosKnown) {
 			// we have a previous lock on the target:
 			// are we there yet? if not, approach that point.
-			if(GenericAI.Distance(npcLocation, this.playerLastKnownLocation) > 1) {
-				npcInterface.SetEntityLocation(this.playerLastKnownLocation, wanderAndPatrolSpeed);
+			if(GenericAI.Distance(npcLocation, playerLastKnownLocation) > 1) {
+				npcInterface.SetEntityLocation(playerLastKnownLocation, wanderAndPatrolSpeed);
 				return true; // this component handled the situation
 			} else {
 				// we are to the player's last known location, look around till we find player

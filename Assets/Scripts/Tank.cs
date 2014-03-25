@@ -26,6 +26,9 @@ public class Tank : MonoBehaviour {
 		if(ai != null) {
 			ai.GetAIStats ().Damage (amount);
 		}
+		if(ai.GetAIStats().GetHealthPoints() == 0) {
+			Die();
+		}
 	}
 
 	/**

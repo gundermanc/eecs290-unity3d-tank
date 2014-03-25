@@ -10,7 +10,7 @@ using System.Collections;
 public class WanderComponent : AIComponent {
 
 	private Rect territory;
-	private Vector3 target = new Vector3();
+	private Vector3 target;
 	private float speed;
 
 	public WanderComponent(Rect territory, float speed) {

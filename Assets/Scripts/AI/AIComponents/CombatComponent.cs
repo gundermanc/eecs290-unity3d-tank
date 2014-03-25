@@ -54,7 +54,6 @@ public class CombatComponent : AIComponent {
 		// if player is in sight, move in for attack
 		if(GenericAI.EntitySeen(npcLocation, npcRotation, playerLocation, 
 		              viewingAngleDegrees, viewingDistance)) {
-
 			// check if opponent is far away, if so, get closer, don't fire yet
 			if(GenericAI.Distance(npcLocation, playerLocation) > maxFireDistance) {
 				npcInterface.SetEntityLocation(playerLocation, pursueSpeed);
