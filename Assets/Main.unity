@@ -6718,6 +6718,7 @@ GameObject:
   - 114: {fileID: 2029826523}
   - 54: {fileID: 2029826524}
   - 114: {fileID: 2029826525}
+  - 114: {fileID: 2029826526}
   m_Layer: 0
   m_Name: TankPlayer
   m_TagString: Player
@@ -6788,6 +6789,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9a38be0e0e56a47bb95b787becca20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2029826526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2029826521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b4bec30586762043bb7e340caba59d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 100
 --- !u!1 &2033188018
 GameObject:
   m_ObjectHideFlags: 0
@@ -7467,7 +7481,6 @@ GameObject:
   - 114: {fileID: 2134042420}
   - 114: {fileID: 2134042419}
   - 54: {fileID: 2134042418}
-  - 114: {fileID: 2134042421}
   m_Layer: 0
   m_Name: TankEnemy
   m_TagString: Tank
@@ -7543,16 +7556,3 @@ MonoBehaviour:
   viewingDistance: 25
   reloadTimeMillis: 1000
   maxAttackDistance: 15
---- !u!114 &2134042421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2134042416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b4bec30586762043bb7e340caba59d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 100

@@ -16,13 +16,18 @@ public class PlayerHealth : MonoBehaviour {
 
 	void OnGUI() {
 		GUI.backgroundColor = Color.green;
-		GUI.Button(new Rect(20,20,healthBarLength,30),currentHealth.ToString());
+		if (currentHealth <= 10) {
+			GUI.Button(new Rect(20,20,healthBarLength,30),"");
+			GUI.Label (new Rect(20,30 + healthBarLength,20,30),currentHealth.ToString ());
+		} else {
+			GUI.Button(new Rect(20,20,healthBarLength,30),currentHealth.ToString());
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (currentHealth == 0) {
-			Destroy(gameObject);
+			Application.LoadLevel(0);
 		}
 		adjustHealth(currentHealth);
 	}
@@ -40,7 +45,6 @@ public class PlayerHealth : MonoBehaviour {
 
 	void OnCollisionEnter(Collision bulletCollision) {
 		if (bulletCollision.gameObject.tag.Equals("Bullet")) {
-			Debug.LogError ("COLLISION!!!!!!!!!!!!");
 			currentHealth--;
 		}
 	}
