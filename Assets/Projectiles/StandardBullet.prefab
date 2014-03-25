@@ -68,7 +68,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: .200000003
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 1
@@ -129,6 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3cf0bfe9984a77488fffc30422ac16a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
+  decay: 1
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1

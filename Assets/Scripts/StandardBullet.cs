@@ -4,6 +4,8 @@ using System.Collections;
 public class StandardBullet : MonoBehaviour {
 
 	private bool active; //Can hurt tanks when active
+	public float damage;
+	public float decay;
 
 	// Use this for initialization
 	void Start () {
@@ -22,11 +24,14 @@ public class StandardBullet : MonoBehaviour {
 			while(tank.parent != null){
 				tank = tank.parent;
 			}
-			tank.GetComponent<Tank>().Hurt(10);
+			tank.GetComponent<Tank>().Hurt(damage);
 			active = false;
 		}
 		if (Target.collider.tag == "Ground") {
-			active = false;
+			damage -= decay;
+			if (damage<0f){
+				damage = 0f;
+			}
 		}
 	}
 }

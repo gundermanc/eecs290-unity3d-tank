@@ -39,9 +39,9 @@ public class CombatComponent : AIComponent {
 
 			npcInterface.SetEntityRotation(npcInterface.GetPlayerLocation());
 			// fire bullets
-			GameObject projectile = MonoBehaviour.Instantiate (bullet, npcInterface.GetEntityLocation() - npcInterface.GetEntityForward() * 2f + Vector3.up * .8f, Quaternion.identity) as GameObject;
-			//Accelerate bullet in the proper direction
-			projectile.rigidbody.AddForce ((npcInterface.GetEntityForward() + Vector3.up * .1f).normalized * -firepower);
+			Transform barrel = npcInterface.GetEntityTransform().GetChild(2).GetChild(0);
+			GameObject projectile = MonoBehaviour.Instantiate (bullet, barrel.position + barrel.up.normalized * -2f, Quaternion.identity) as GameObject;
+			projectile.rigidbody.AddForce ((-barrel.up).normalized * firepower);
 			this.lastFireTime = DateTime.Now;
 		}
 	}
@@ -54,11 +54,9 @@ public class CombatComponent : AIComponent {
 		// if player is in sight, move in for attack
 		if(GenericAI.EntitySeen(npcLocation, npcRotation, playerLocation, 
 		              viewingAngleDegrees, viewingDistance)) {
-
 			// check if opponent is far away, if so, get closer, don't fire yet
 			if(GenericAI.Distance(npcLocation, playerLocation) > maxFireDistance) {
-				npcInterface.SetEntityLocation(GenericAI
-			          .MovementVector(npcLocation, playerLocation, pursueSpeed));
+				npcInterface.SetEntityLocation(playerLocation, pursueSpeed);
 			} else {
 				Fire (npcInterface);
 			}

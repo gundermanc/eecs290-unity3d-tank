@@ -10,7 +10,7 @@ using System.Collections;
 public class WanderComponent : AIComponent {
 
 	private Rect territory;
-	private Vector3 target = new Vector3();
+	private Vector3 target;
 	private float speed;
 
 	public WanderComponent(Rect territory, float speed) {
@@ -25,7 +25,8 @@ public class WanderComponent : AIComponent {
 
 	public void Think(EntityInterface npcInterface) {
 		/* if we have reached our target, generate a new target */
-		if(GenericAI.Distance(npcInterface.GetEntityLocation(), target) <= 1.0f) {
+		Debug.Log (GenericAI.Distance(npcInterface.GetEntityLocation(), target));
+		if(GenericAI.Distance(npcInterface.GetEntityLocation(), target) <= 2.0f) {
 			PickTarget();
 		}
 		return;
@@ -44,9 +45,7 @@ public class WanderComponent : AIComponent {
 	}
 
 	public bool Act(EntityInterface npcInterface) {
-		npcInterface.SetEntityLocation (GenericAI.MovementVector(npcInterface.GetEntityLocation ()
-		                                                        , target, this.speed));
-
+		npcInterface.SetEntityLocation (target, this.speed);
 		return true;
 	}
 }
