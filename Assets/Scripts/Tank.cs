@@ -31,6 +31,11 @@ public class Tank : MonoBehaviour {
 		}
 	}
 
+	public int GetHealth(){
+		EnemyTankAI ai = gameObject.GetComponent<EnemyTankAI> ();
+		return ai.GetAIStats ().GetHealthPoints ();
+	}
+
 	/**
 	 * Destroys the tank.
 	 */

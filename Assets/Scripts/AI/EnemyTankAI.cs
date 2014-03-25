@@ -47,6 +47,9 @@ public class EnemyTankAI : MonoBehaviour {
 			 */
 			new PursueComponent(viewingDistance, viewingAngle, 
 			                    maxAttackDistance, pursuitSpeed, wanderAndPatrolSpeed),
+
+			new InvestigateComponent(pursuitSpeed),
+
 			/**
 			 * Player is out of sight. Patrol random points within my "territory" rectangle.
 			 */

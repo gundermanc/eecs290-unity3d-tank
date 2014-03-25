@@ -48,7 +48,6 @@ public class TankController : EntityInterface {
 	}
 
 	public int GetEntityHealth(){
-		//return this.transform.GetComponent<AIResources>().GetHealthPoints();
-		return 1;
+		return GetEntityTransform().GetComponent<Tank>().GetHealth();
 	}
 }

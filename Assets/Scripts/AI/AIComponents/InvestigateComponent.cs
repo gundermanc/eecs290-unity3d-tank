@@ -11,15 +11,19 @@ public class InvestigateComponent : AIComponent {
 	/** Place where the tank will check out. */
 	private Vector3 target;
 	private float speed;
+	private int lasthealth;
+	private int currhealth;
+	private float timehit;
 	
 	/**
 	 * Instantiates component.
 	 * @param territory Series of points that the tank will patrol through.
 	 * @param startIndex First point to visit.
 	 */
-	public InvestigateComponent(Vector3 target, float speed) {
-		this.target = target;
+	public InvestigateComponent(float speed) {
+		this.target = new Vector3(0,0,0);
 		this.speed = speed;
+		timehit = -100f;
 	}
 	
 	/**
@@ -27,7 +31,11 @@ public class InvestigateComponent : AIComponent {
 	 * @param npcInterface The controls for the NPC.
 	 */
 	public void Think(EntityInterface npcInterface) {
-
+		if (npcInterface.GetEntityHealth () != currhealth) {
+			currhealth = npcInterface.GetEntityHealth();
+			timehit = Time.timeSinceLevelLoad;
+			target = npcInterface.GetPlayerLocation();
+		}
 		return;
 	}
 
@@ -36,9 +44,10 @@ public class InvestigateComponent : AIComponent {
 	 * move closer.
 	 */
 	public bool Act(EntityInterface npcInterface) {
-		//npcInterface.SetEntityLocation (GenericAI.MovementVector(npcInterface.GetEntityLocation (),
-		//	                                                         territory[target], this.speed));
-		
-		return true;
+		if (Time.timeSinceLevelLoad - timehit < 10f) {
+			npcInterface.SetEntityLocation (target, this.speed);
+			return true;
+		}
+		return false;
 	}
 }
