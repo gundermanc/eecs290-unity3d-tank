@@ -2064,6 +2064,22 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: -4.37113883e-08
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
+      propertyPath: RotationalSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400026, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -5.39548672e-08
+      objectReference: {fileID: 0}
+    - target: {fileID: 400026, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -.732053995
+      objectReference: {fileID: 0}
+    - target: {fileID: 400026, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
+      propertyPath: m_LocalScale.y
+      value: .462116539
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b70ee93253514de98dc46b29c7a045a, type: 2}
   m_RootGameObject: {fileID: 2029826521}
@@ -2625,8 +2641,8 @@ Transform:
   m_PrefabInternal: {fileID: 548248941}
   m_GameObject: {fileID: 800691878}
   m_LocalRotation: {x: 0, y: 1.19209275e-07, z: 0, w: 1}
-  m_LocalPosition: {x: -5.39548637e-08, y: -.200000048, z: -.226303101}
-  m_LocalScale: {x: 2.4000001, y: .910000026, z: 2.29999995}
+  m_LocalPosition: {x: -5.39548672e-08, y: -.732053995, z: -.226303101}
+  m_LocalScale: {x: 2.4000001, y: .462116539, z: 2.29999995}
   m_Children: []
   m_Father: {fileID: 966695313}
 --- !u!65 &800691880
@@ -6756,7 +6772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VerticalSpeed: 10
-  RotationalSpeed: 1
+  RotationalSpeed: 2
   normalProjectile: {fileID: 100000, guid: 29bc112cf3cb5ac4ba14871f6032bbcd, type: 2}
   specialProjectile: {fileID: 100000, guid: 85806442c0503b243b4be363b7db096c, type: 2}
   specialProjectileAmmo: 10
