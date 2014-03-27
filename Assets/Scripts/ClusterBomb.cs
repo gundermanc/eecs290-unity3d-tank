@@ -12,12 +12,10 @@ public class ClusterBomb : MonoBehaviour {
 		active = true;
 		gameObject.GetComponent<TrailRenderer>().material.SetColor("_Color", Color.yellow);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-	
+
+	/*
+	 * Creates the clustering effect of the cluster bomb on ground contact
+	 */
 	void OnCollisionEnter(Collision collision) {
 		Vector3 dir;
 		if (collision.collider.tag == "Ground") {
