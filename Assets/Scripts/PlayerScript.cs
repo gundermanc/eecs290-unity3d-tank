@@ -71,9 +71,9 @@ public class PlayerScript : MonoBehaviour {
 		}
 		
 		if (Input.GetKeyDown (KeyCode.Space)) {
-			Shoot (normalProjectile, 10000f);
+			Shoot (normalProjectile, 1000f);
 		} else if (Input.GetKeyDown (KeyCode.Tab) && specialProjectileAmmo > 0) {
-			Shoot(specialProjectile, 10000f);
+			Shoot(specialProjectile, 1000f);
 			specialProjectileAmmo--;
 		}
 		
