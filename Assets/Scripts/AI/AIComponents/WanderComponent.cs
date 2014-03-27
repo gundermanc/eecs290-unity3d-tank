@@ -25,7 +25,7 @@ public class WanderComponent : AIComponent {
 
 	public void Think(EntityInterface npcInterface) {
 		/* if we have reached our target, generate a new target */
-		Debug.Log (GenericAI.Distance(npcInterface.GetEntityLocation(), target));
+	//	Debug.Log (GenericAI.Distance(npcInterface.GetEntityLocation(), target));
 		if(GenericAI.Distance(npcInterface.GetEntityLocation(), target) <= 2.0f) {
 			PickTarget();
 		}
@@ -38,7 +38,7 @@ public class WanderComponent : AIComponent {
 			/* select a random point within */
 			newTarget.x = Random.Range (territory.x, territory.x + territory.width);
 			newTarget.z = Random.Range (territory.y, territory.y + territory.height);
-			Debug.LogWarning ("Picked (" + target.x + ", " + target.z + ")");
+//			Debug.LogWarning ("Picked (" + target.x + ", " + target.z + ")");
 		} while (GenericAI.Distance(target, newTarget) < 5);
 
 		target = newTarget;
